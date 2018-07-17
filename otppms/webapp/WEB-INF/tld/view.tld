@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>view library</description>
+	<display-name>view</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>view</short-name>
+	<uri>http://java.ft.com/app/view</uri>
+
+	<!-- LanguageTag -->
+	<tag>
+		<name>LanguageTag</name>
+		<tag-class>com.ft.otp.common.taglib.LanguageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>key</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>replaceVal</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- AdminPermTag -->
+	<tag>
+		<name>AdminPermTag</name>
+		<tag-class>com.ft.otp.common.taglib.AdminPermTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>key</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>path</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>langKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- LanguageSelectTag -->
+	<tag>
+		<name>LanguageSelectTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.LanguageSelectTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>key</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- ServerTag -->
+	<tag>
+		<name>ServerTag</name>
+		<tag-class>com.ft.otp.common.taglib.ServerTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- AgentServerTag -->
+	<tag>
+		<name>AgentServerTag</name>
+		<tag-class>com.ft.otp.common.taglib.AgentServerTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- ServerAuthPriorityTag -->
+	<tag>
+		<name>ServerAuthPriorityTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.ServerAuthPriorityTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- BackendTypeTag -->
+	<tag>
+		<name>BackendTypeTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.BackendTypeTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- AdminUserTag -->
+	<tag>
+		<name>AdminUserTag</name>
+		<tag-class>com.ft.otp.common.taglib.AdminUserTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- ServerConfigTag -->
+	<tag>
+		<name>ServerConfigTag</name>
+		<tag-class>com.ft.otp.common.taglib.ServerConfigTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- LocalIpTag -->
+	<tag>
+		<name>LocalIpTag</name>
+		<tag-class>com.ft.otp.common.taglib.LocalIpTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- RadiusAttr Tag -->
+	<tag>
+		<name>RadiusAttrTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.radius.RadiusAttrTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Val</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- RadiusVendorTag Tag -->
+	<tag>
+		<name>RadiusVendorTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.radius.RadiusVendorTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Val</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- Domain Tag -->
+	<tag>
+		<name>DomainTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.domain.DomainTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Val</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- Domain Tag -->
+	<tag>
+		<name>ImpDomainTag</name>
+		<tag-class>
+			com.ft.otp.common.taglib.domain.ImpDomainTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>index1Val</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- radProfile Tag -->
+	<tag>
+		<name>RadProfileTag</name>
+		<tag-class>com.ft.otp.common.taglib.RadProfileTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- licInfo Tag -->
+	<tag>
+		<name>LicInfoTag</name>
+		<tag-class>com.ft.otp.common.taglib.lic.LicInfoTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- licInfo Tag -->
+	<tag>
+		<name>LicNameTag</name>
+		<tag-class>com.ft.otp.common.taglib.lic.LicNameTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- vendorInfo Tag -->
+	<tag>
+		<name>VendorInfoTag</name>
+		<tag-class>com.ft.otp.common.taglib.vendor.VendorTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>dataSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
