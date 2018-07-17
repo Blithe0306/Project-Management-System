@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resource"/>
+	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/freemarker-2.3.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/oro-2.0.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ibatis/ibatis-common-2.1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ibatis/ibatis-dao-2.1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ibatis/ibatis-sqlmap-2.1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring/spring-aspects.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring/spring-mock.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/proxool-0.9.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/proxool-cglib.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-beanutils-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-chain-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-collections-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-fileupload-1.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-io-1.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-lang-2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-validator-1.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ant.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/bcprov-jdk15-144.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cron4j-2.2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ezmorph-1.0.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/NCSO.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/c3p0-0.9.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/db2jcc_license_cu.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/db2jcc.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/jconn3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/jtds-1.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/junit.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/ojdbc14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/sqljdbc.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tools/iText-5.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tools/javacsv.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tools/jxl.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tools/patchca-0.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/struts/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/struts/struts2-core-2.3.16.3.jar"/>
+	<classpathentry kind="lib" path="lib/struts/struts2-json-plugin-2.3.16.3.jar"/>
+	<classpathentry kind="lib" path="lib/struts/struts2-spring-plugin-2.3.16.3.jar"/>
+	<classpathentry kind="lib" path="lib/struts/xwork-core-2.3.16.3.jar"/>
+	<classpathentry kind="lib" path="webapp/kindeditor/jsp/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="webapp/kindeditor/jsp/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="webapp/kindeditor/jsp/lib/json_simple-1.1.jar"/>
+	<classpathentry exported="true" kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/geronimo-activation_1.1_spec-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/geronimo-annotation_1.0_spec-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/geronimo-jaxws_2.2_spec-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/geronimo-ws-metadata_2.0_spec-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jetty-continuation-7.4.5.v20110725.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jetty-http-7.4.5.v20110725.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jetty-io-7.4.5.v20110725.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jetty-server-7.4.5.v20110725.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jetty-util-7.4.5.v20110725.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/saaj-api-1.3.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/wsdl4j-1.6.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/xmlschema-core-2.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/sigar/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/sigar/sigar.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring/spring.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/commons-net-3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons/jaxen-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/stax2-api-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/woodstox-core-asl-4.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jaxb-impl-2.1.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/cxf-2.4.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jaxb-api-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jaxb-xjc-2.1.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/jettison-1.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/serializer-2.7.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/soap/neethi-3.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/db/postgresql-8.2-507.jdbc3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/report/fcexporter.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/report/fcexporthandler.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/struts/javassist-3.11.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/struts/ognl-3.0.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/QRCode.jar"/>
+	<classpathentry kind="lib" path="resource/vendor/ft_import_seed.jar"/>
+	<classpathentry kind="lib" path="lib/struts/commons-lang3-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
+</classpath>

@@ -1,0 +1,103 @@
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	line-height: 20px;
+	font-weight: normal;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+.text_Hong_Se{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.text_Bai_Se{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #F6F6F6;
+	text-decoration: none;
+	line-height: 20px;
+}
+
+.login_form_text{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+	color: #002559;
+	border: 1px solid #BCBCBC;
+	height: 18px;
+	background-color: #F5F5F5;
+	width: 100%;
+}
+
+.isLink_HeiSe {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+
+.isLink_HeiSe:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+
+.isLink_HeiSe:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: normal;
+	color: #FF6600;
+	text-decoration: underline;
+}
+
+.login_button{
+	background-image: url(../../images/login/login_button.png);
+	background-repeat: no-repeat;
+	text-align: center;
+	display: block;
+	height: 36px;
+	width: 108px;
+}
+
+.isLink_BaiSe {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 36px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.isLink_BaiSe:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 36px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.isLink_BaiSe:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 36px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
