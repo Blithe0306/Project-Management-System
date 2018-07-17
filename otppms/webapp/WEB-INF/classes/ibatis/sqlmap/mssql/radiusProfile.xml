@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="otp_rad_profile">
+  
+	
+	<select id="selectRadProFile"  resultMap="resultMap_rpf"  parameterClass="radProfile">
+		<![CDATA[
+	    	SELECT id, profilename, descp
+	    	FROM 
+        ]]>
+        <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+				(select top $pageSize$ * from otppms_rad_profile where id not in 
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				 (select top $startRow$ id from otppms_rad_profile order by id DESC ) order by id DESC ) otppms_rad_profile where 1=1 
+				</isNotEmpty>
+			</isNotNull>
+         </dynamic>
+		<include refid="queryFilter" />
+		<![CDATA[
+			ORDER BY id DESC 
+		]]>
+	</select>
+	 
+</sqlMap>

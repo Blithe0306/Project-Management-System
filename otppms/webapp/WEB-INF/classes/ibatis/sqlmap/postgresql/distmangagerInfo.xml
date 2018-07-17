@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="dist_managerInfo">
+	   <select id="selectTD" resultClass="distmanagerInfo"
+		parameterMap="parameterMap_td">
+		<![CDATA[
+		    SELECT
+	    		token,
+	    		pubkeyfactor,
+	    		phoneudid,
+	    		activepass,
+	    		apdeath,
+	    		apretry,
+	    		actived,
+	    		activetime,
+	    		provtype,
+	    		exttype
+            from otppms_tokenext
+            where 1=1
+          ]]>
+		<include refid="queryDistManagerCondition" />
+		<![CDATA[       
+		    order by token  asc   		
+            LIMIT #pageSize#
+            OFFSET #startRow#
+        ]]>
+	 </select>
+ 
+</sqlMap>

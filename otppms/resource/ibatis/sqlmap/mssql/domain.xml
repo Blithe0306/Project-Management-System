@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="domain_info">
+
+ 	<select id="selectDI" parameterMap="parameterMap_di"
+		resultClass="domainInfo">
+		<![CDATA[
+	   	SELECT
+    		  d.domainId,
+    		  d.domainSn,
+    		  d.domainName, 
+    		  d.descp
+            FROM  
+         ]]>
+         <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+					(select top $pageSize$ f.* from otppms_domaininfo f
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryDomainCondition" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				 	and f.domainId not in (select top $startRow$ f.domainId from otppms_domaininfo f
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryDomainCondition" />
+         </dynamic>
+		<![CDATA[
+			order by f.domainId asc ) order by f.domainId asc ) d order by  d.domainId asc 
+		]]>
+	</select>
+ 	
+</sqlMap>
+ 

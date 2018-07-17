@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- 基础事务代理BEAN,继承本BEAN实现自动事务控制 -->
+	<bean id="_baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+
+		<property name="transactionManager" ref="transactionManager" />
+		<!-- 
+			<property name="preInterceptors"></property>
+			<property name="postInterceptors"></property>
+		-->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="query*">
+					PROPAGATION_REQUIRED,-Throwable
+				</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="update*">
+					PROPAGATION_REQUIRED,-Throwable
+				</prop>
+				<prop key="del*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="create*">
+					PROPAGATION_REQUIRED,-Throwable
+				</prop>
+				<prop key="import*">
+					PROPAGATION_REQUIRED,-Throwable
+				</prop>
+				<prop key="batch*">
+					PROPAGATION_REQUIRED,-Throwable
+				</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 将管理员日志类注入到bean中 -->
+	<bean id="adminLog"
+		class="com.ft.otp.core.interceptor.ServiceLogInterceptor">
+	</bean>
+
+	<!-- 将日志Bean和业务Bean通过代理的方式进行代理整合 -->
+	<bean name="logmanager"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>adminLog</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>domainInfoServ</value>
+				<value>orgunitInfoServ</value>
+				<value>adminAndOrgunitServ</value>
+				<value>userInfoServ</value>
+				<value>tokenServ</value>
+				<value>userTokenServ</value>
+				<value>agentServ</value>
+				<value>serverServ</value>
+				<value>agentServerServ</value>
+				<value>agentConfServ</value>
+				<value>backendServ</value>
+				<value>adminLogServ</value>
+				<value>userLogServ</value>
+				<value>confServ</value>
+				<value>distconfServ</value>
+				<value>emailServ</value>
+				<value>dbConfServ</value>
+				<value>licenseServ</value>
+				<value>distManagerServ</value>
+				<value>serverConfigServ</value>
+				<value>adminUserServ</value>
+				<value>roleInfoServ</value>
+				<value>coreConfServ</value>
+				<value>smsInfoServ</value>
+				<value>accessConServ</value>
+				<value>centerBaseSetServ</value>
+				<value>radProfileServ</value>
+				<value>radAttrServ</value>
+				<value>noticeServ</value>
+				<value>taskInfoServ</value>
+				<value>custInfoServ</value>
+				<value>prjServ</value>
+				<value>resordsServ</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="appContext-module-user.xml" />
+	<import resource="appContext-module-authmgr.xml" />
+	<import resource="appContext-module-usertoken.xml" />
+	<import resource="appContext-module-token.xml" />
+	<import resource="appContext-module-tokenspec.xml" />
+	<import resource="appContext-module-logs.xml" />
+	<import resource="appContext-module-admin.xml" />
+	<import resource="appContext-module-conf.xml" />
+	<import resource="appContext-module-orgunit.xml" />
+	<import resource="appContext-module-report.xml" />
+	<import resource="appContext-module-licinfo.xml" />
+	<import resource="appContext-module-monitor.xml" />
+	<import resource="appContext-module-project.xml" />
+	<import resource="appContext-module-customer.xml" />
+	<import resource="appContext-module-prjinfo.xml" />
+	<import resource="appContext-module-resords.xml" />
+</beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-lazy-init="true">
+
+	<!-- project Info -->
+	<bean id="projectServ" parent="_baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.ft.otp.manager.project.service.impl.ProjectServImpl">
+				<property name="projectDao">
+					<bean
+						class="com.ft.otp.manager.project.dao.impl.ProjectDaoImpl"
+						parent="_baseSqlMapClientTarget">
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 监视人 -->
+	<bean id="customerUserServ" parent="_baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.ft.otp.manager.notice.customer.service.impl.CustomerUserImpl">
+				<property name="customDao">
+					<bean
+						class="com.ft.otp.manager.notice.customer.dao.impl.CustomerUserDaoImpl"
+						parent="_baseSqlMapClientTarget">
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 项目总结 -->
+	<bean id="projectResultServ" parent="_baseTransactionProxy">
+		<property name="target">
+			<bean class="com.ft.otp.manager.project.service.impl.ProjectResultServImpl">
+				<property name="projectResultDao">
+					<bean class="com.ft.otp.manager.project.dao.impl.ProjectResultDaoImpl"
+						parent="_baseSqlMapClientTarget">
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>

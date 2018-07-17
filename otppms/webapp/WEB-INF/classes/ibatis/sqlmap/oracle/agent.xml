@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "dtd/sql-map-2.dtd">
+<sqlMap namespace="agent_info">
+	<select id="selectAT" parameterMap="parameterMap_at"
+		resultClass="agentInfo">
+		<![CDATA[
+		select * from (
+		     select rownum as rn, t.* from (
+			     select 
+		    	     fag.enabled,
+		    		 fag.agentipaddr,
+		    		 fag.descp,
+		    		 fag.pubkey,
+		    		 fag.agenttype,
+		    		 fag.agentconfid, 
+		    		 fag.graceperiod,
+		    		 fag.agentname
+            	 from otppms_agentinfo fag where 1=1 
+         ]]>
+		<include refid="queryAgentCondition"/>
+		<![CDATA[
+	    order by fag.agentipaddr asc) t where rownum < = #endRow#) tt where rn > #startRow# order by agentipaddr asc 
+		]]>
+	</select>
+ </sqlMap>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="agent_server_info">
+
+	<typeAlias alias="agentserverinfo"
+		type="com.ft.otp.manager.authmgr.agentserver.entity.AgentServerInfo" />
+
+	<parameterMap class="agentserverinfo" id="parameterMap_as">
+		<parameter property="agentipaddr" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="hostipaddr" javaType="string"
+			jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<insert id="insertAS" parameterClass="agentserverinfo">
+		<![CDATA[
+    		INSERT INTO otppms_agent_host(agentipaddr,hostipaddr)
+    		                    VALUES(#agentipaddr#,#hostipaddr#)
+    	]]>
+	</insert>
+
+	<select id="selectAS" parameterMap="parameterMap_as"
+		resultClass="agentserverinfo">
+		<![CDATA[
+    	SELECT
+    	     fag.agentipaddr,
+		     fag.hostipaddr
+             from otppms_agent_host fag where 1=1
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="agentipaddr" prepend="and">
+				<isNotEmpty property="agentipaddr">
+					fag.agentipaddr =#agentipaddr#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="hostipaddr" prepend="and">
+				<isNotEmpty property="hostipaddr">
+					fag.hostipaddr =#hostipaddr#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<delete id="deleteAS" parameterMap="parameterMap_as">
+		<![CDATA[
+		DELETE FROM otppms_agent_host WHERE 1=1
+		]]>
+		<dynamic prepend="">
+			<isNotEmpty property="agentipaddr" prepend="and">
+				agentipaddr = #agentipaddr#
+			</isNotEmpty>
+			<isNotNull property="agentHostList" prepend="and">
+				hostipaddr IN
+				<iterate property="agentHostList" open="(" close=")"
+					conjunction=",">
+					#agentHostList[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+
+	<select id="selectAS_Join_Serv" resultClass="agentserverinfo"
+		parameterMap="parameterMap_as">
+		<![CDATA[
+		    SELECT otppms_agent_host.hostipaddr,otppms_hostinfo.confid 
+		      FROM
+		     otppms_agent_host, otppms_hostinfo WHERE
+		     otppms_hostinfo.hostipaddr = otppms_agent_host.hostipaddr
+         ]]>
+		<dynamic prepend="">
+			<isNotEmpty property="agentipaddr" prepend="and">
+				otppms_agent_host.agentipaddr = #agentipaddr#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+</sqlMap>

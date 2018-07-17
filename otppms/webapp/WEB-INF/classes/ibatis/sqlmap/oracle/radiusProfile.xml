@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="otp_rad_profile">
+	<select id="selectRadProFile"  resultMap="resultMap_rpf"  parameterClass="radProfile">
+		<![CDATA[
+		select * from ( 
+		    select rownum as rn,t.* from ( 
+		    	select id,
+		    		profilename,
+		    		descp 
+	    		FROM otppms_rad_profile 
+	    		WHERE 1=1 
+        ]]>
+		<include refid="queryFilter" />
+		<![CDATA[
+            order by id desc) t where rownum < = #endRow#) tt where rn > #startRow# order by id desc 
+		]]>
+	</select>
+	
+</sqlMap>

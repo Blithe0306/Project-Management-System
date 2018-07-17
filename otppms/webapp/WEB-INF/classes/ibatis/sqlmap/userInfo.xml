@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user_info">
+	<typeAlias alias="userInfo"
+		type="com.ft.otp.manager.user.userinfo.entity.UserInfo" />
+
+	<parameterMap class="userInfo" id="parameterMap_ui">
+		<parameter property="userId" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="realName" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="papersNumber" javaType="string"
+			jdbcType="VARCHAR" />
+
+		<parameter property="startRow" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="pageSize" javaType="int"
+			jdbcType="INTEGER" />
+	</parameterMap>
+
+		<resultMap id="resultMap_ui" class="userInfo">
+		<result property="token" column="token" nullValue="" />
+		<result property="userId" column="userid" nullValue="" />
+		<result property="realName" column="realname" nullValue="" />
+		<result property="papersType" column="paperstype" nullValue="" />
+		
+		<result property="papersNumber" column="papersnumber"
+			nullValue="" />
+		<result property="pwd" column="pwd" nullValue="" />
+		<result property="cellPhone" column="cellphone" nullValue="" />
+		<result property="email" column="email" nullValue="" />
+		<result property="physicalType" column="physicaltype"
+			nullValue="-1" />
+		<result property="productType" column="producttype" nullValue="-1" />
+		<result property="expireTime" column="expiretime" nullValue="0" />
+		<result property="otpLen" column="otplen" nullValue="-1" />
+		<result property="intervalTime" column="intervaltime"
+			nullValue="-1" />
+		<result property="domainId" column="domainid" nullValue="0" />
+		<result property="domainName" column="domainname" nullValue="" />
+		<result property="orgunitId" column="orgunitid"  />
+		<result property="orgunitName" column="orgunitname" nullValue="" />
+		<result property="orgunitNumber" column="orgunitNumber" nullValue="" />
+		<result property="tel" column="tel" nullValue="" />
+		<result property="address" column="address" />
+	</resultMap>
+	
+	<sql id="queryUsersConditionUC">
+        <![CDATA[
+	    	WHERE 1=1
+	    ]]>
+		<dynamic prepend="">			
+			
+			<isNotNull property="userId" prepend="and">
+				<isNotEmpty property="userId">
+					u.userid like '%$userId$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+				u.domainid = #domainId#
+			</isNotEqual>
+			<isNotEqual compareValue="0" property="orgunitId" prepend="and">
+				u.orgunitid = #orgunitId#
+			</isNotEqual>
+			<isEqual compareValue="0" property="orgunitId" prepend="and">
+					u.orgunitid is null
+			</isEqual>
+			<isNotNull>
+				<isNotEmpty property="realName" prepend="and">
+					u.realname like '%$realName$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="2" property="usbind" prepend="and">
+				exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="usbind" prepend="and">
+				not exists(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual> 
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((exists (select distinct fao.domainid from otppms_admin_orgunit fao where u.domainid = fao.domainid and fao.adminid=#currentAdminId# and fao.orgunitid is null) and (u.orgunitid is null))
+					or	exists (select distinct fao.orgunitid from otppms_admin_orgunit fao where u.orgunitid = fao.orgunitid and fao.adminid=#currentAdminId# and u.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+	</sql>
+
+	<sql id="queryUsersCondition">
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty property="token" prepend=",">
+					otppms_user_token utoken
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+        <![CDATA[
+	    	WHERE 1=1
+	    ]]>
+		<dynamic prepend="">			
+			<isNotNull>
+				<isNotEmpty property="token" prepend="and">
+					utoken.userid = u.userid and utoken.token like '%$token$%'
+				</isNotEmpty>
+			</isNotNull>
+			
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+					u.domainid = #domainId#
+			</isNotEqual>
+			
+			<isNull property="orgunitIds">
+				<isNotNull property="orgunitId" prepend="and">
+						u.orgunitId = #orgunitId#
+				</isNotNull>
+			</isNull>
+			
+			<isNotEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					 (u.orgunitid is null or u.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+					  )
+				</isNotNull>
+			</isNotEqual>
+			
+			<isEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					u.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+				</isNotNull>
+			</isEqual>
+			
+			<isNotNull property="domainIds" prepend="and">
+				 	u.domainid IN
+				<iterate property="domainIds" open="(" close=")"
+					conjunction=",">
+					#domainIds[]#
+				</iterate>
+			</isNotNull>
+			 <isEqual compareValue="2" property="usbind" prepend="and">
+				exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="usbind" prepend="and">
+				 not exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual> 
+			<isNotNull>
+				<isNotEmpty property="userId" prepend="and">
+					u.userid like '%$userId$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull>
+				<isNotEmpty property="realName" prepend="and">
+					u.realname like '%$realName$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull>
+				<isNotEmpty property="papersNumber" prepend="and">
+					u.papersnumber like '%$papersNumber$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="0" property="locked" prepend="and">
+				u.locked = #locked#
+			</isEqual>
+			<isEqual compareValue="2" property="locked" prepend="and">
+				u.locked in ('1','2')
+			</isEqual>
+			<isGreaterThan compareValue="-1" property="enabled" prepend="and">
+				u.enabled = #enabled#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="localAuth" prepend="and">
+				u.localAuth = #localAuth#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="backEndAuth" prepend="and">
+				u.backEndAuth = #backEndAuth#
+			</isGreaterThan>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+				((exists (select distinct fao.domainid from otppms_admin_orgunit fao where u.domainid = fao.domainid and fao.adminid=#currentAdminId# and fao.orgunitid is null) and (u.orgunitid is null))
+					or	exists (select distinct fao.orgunitid from otppms_admin_orgunit fao where u.orgunitid = fao.orgunitid and fao.adminid=#currentAdminId# and u.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+			
+			<isNotNull property="batchIds" prepend="and">
+				u.userid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			
+		</dynamic>
+	</sql>
+	
+	<sql id="queryUsersConditionBind">
+        <![CDATA[
+	    	WHERE 1=1
+	    ]]>
+		<dynamic prepend="">			
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+					u.domainid = #domainId#
+			</isNotEqual>
+			<isNull property="orgunitIds">
+				<isNotNull property="orgunitId" prepend="and">
+						u.orgunitId = #orgunitId#
+				</isNotNull>
+			</isNull>
+			<isNotEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					 (u.orgunitid is null or u.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+					  )
+				</isNotNull>
+			</isNotEqual>
+			<isEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					u.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+				</isNotNull>
+			</isEqual>
+			
+			<isEqual compareValue="3" property="orgFlag" prepend="and">
+				u.orgunitid is null
+			</isEqual>
+			
+			<isNotNull property="domainIds" prepend="and">
+				 	u.domainid IN
+				<iterate property="domainIds" open="(" close=")"
+					conjunction=",">
+					#domainIds[]#
+				</iterate>
+			</isNotNull>
+			 <isEqual compareValue="2" property="usbind" prepend="and">
+				exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="usbind" prepend="and">
+				 not exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual> 
+			<isNotNull>
+				<isNotEmpty property="userId" prepend="and">
+					u.userid like '%$userId$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull>
+				<isNotEmpty property="realName" prepend="and">
+					u.realname like '%$realName$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+				((exists (select distinct fao.domainid from otppms_admin_orgunit fao where u.domainid = fao.domainid and fao.adminid=#currentAdminId# and fao.orgunitid is null) and (u.orgunitid is null))
+					or	exists (select distinct fao.orgunitid from otppms_admin_orgunit fao where u.orgunitid = fao.orgunitid and fao.adminid=#currentAdminId# and u.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+	</sql>
+
+	<select id="countUI" resultClass="int"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	select count(u.userid) from otppms_userinfo u
+	    ]]>
+		<include refid="queryUsersCondition" />
+	</select>
+	
+	<select id="countBind" resultClass="int"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	select count(u.userid) from otppms_userinfo u
+	    ]]>
+		<include refid="queryUsersConditionBind" />
+	</select>
+	
+	<select id="selectUser" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	SELECT
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+			u.domainid,
+			u.createtime 
+			from otppms_userinfo u where 1=1
+	    ]]>
+	    <dynamic prepend="">
+			<isNotNull property="userId" prepend="and">
+				<isNotEmpty property="userId">
+					u.userid = #userId#
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="2" property="usbind" prepend="and">
+				exists (select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="usbind" prepend="and">
+				not exists(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				u.userid and u.domainid = otppms_user_token.domainid)
+			</isEqual> 
+			<isNotNull>
+				<isNotEmpty property="realName" prepend="and">
+					u.realname like '%$realName$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="domainId" prepend="and">
+				<isNotEmpty property="domainId">
+					u.domainId = #domainId#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotEqual compareValue="0" property="orgunitId" prepend="and">
+				<isNotNull property="orgunitId" >
+					<isNotEmpty property="orgunitId" >
+						u.orgunitId = #orgunitId#
+					</isNotEmpty>
+				</isNotNull>	
+			</isNotEqual>
+			<isEqual compareValue="0" property="orgunitId" prepend="and">
+				<isNotNull property="orgunitId" >
+					u.orgunitId is null
+				</isNotNull>	
+			</isEqual>
+		</dynamic>
+	</select>
+	
+	<select id="selectU0" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	SELECT
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+			u.domainid,
+			u.createtime 
+			from otppms_userinfo u where 1=1
+	    ]]>
+	    <dynamic prepend="">
+			<isNotNull property="orgunitIds" prepend="and">
+				 u.orgunitid IN
+				<iterate property="orgunitIds" open="(" close=")"
+					conjunction=",">
+					#orgunitIds[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+	
+	<select id="countUC" resultClass="int"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	select count(u.userid) from otppms_userinfo u
+	    ]]>
+		<include refid="queryUsersConditionUC" />
+	</select>
+
+	<insert id="insertUI" parameterClass="userInfo">
+		<![CDATA[
+    		INSERT INTO otppms_userinfo(
+    		userid,
+    		realname,
+			localauth,
+			pwd,
+			pwddeath,
+			getpwddeath,			
+			paperstype,
+			papersnumber,
+			email,
+			address,
+			tel,
+			cellphone,
+			locked ,
+			temploginerrcnt,
+			longloginerrcnt,
+			loginlocktime,
+			logincnt,
+			lastlogintime,
+			backendauth,
+			enabled,
+			domainid,
+			orgunitid,
+			radprofileid,
+			createtime
+			)
+    		VALUES(#userId#,#realName#,#localAuth#,#pwd#,#pwdDeath#,
+    		    #getpwdDeath#,#papersType#,#papersNumber#,
+    			#email#,#address#,#tel#,#cellPhone#,#locked#,
+    			#tempLoginErrCnt#,#longLoginErrCnt#,#loginLockTime#,#loginCnt#,
+    			#lastLoginTime#,#backEndAuth#,#enabled#,#domainId#,
+    			#orgunitId#,#radProfileId#,#createTime#
+    			)
+    	]]>
+	</insert>
+    
+    <!-- update user's base info -->
+    <update id="updateUI" parameterClass="userInfo">
+		<![CDATA[
+			UPDATE otppms_userinfo SET 
+			realname=#realName#,
+			localauth=#localAuth#,
+			paperstype=#papersType#,
+			papersnumber=#papersNumber#,
+			email=#email#,
+			enabled=#enabled#,
+			address=#address#,
+			tel=#tel#,
+			cellphone=#cellPhone#,
+			radprofileid=#radProfileId#,
+			backendauth=#backEndAuth#,
+			orgunitid=#orgunitId# 
+			WHERE  1=1 
+		]]>
+		<isNotNull>
+			<isNotEmpty property="userId" prepend="and">
+				userid = #userId#
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull>
+			<isNotEmpty property="domainId" prepend="and">
+				domainid=#domainId#
+			</isNotEmpty>
+		</isNotNull>
+	</update>
+  
+   <!-- update user empin -->
+   <update id="updateUIStaticPass" parameterClass="userInfo">
+	     update otppms_userinfo set localauth=#localAuth#,pwd=#pwd#  where userid=#userId# and domainId=#domainId#
+	</update>
+	
+	<!-- update locked state and locked time -->
+	<update id="updateUILocked" parameterClass="userInfo">
+	     update otppms_userinfo set locked=#locked#,loginlocktime=#loginLockTime#,temploginerrcnt=#tempLoginErrCnt#,longloginerrcnt=#longLoginErrCnt#  where userid=#userId# and domainId=#domainId#
+	</update>
+	<!-- delete user -->
+	<delete id="deleteUI" parameterClass="userInfo">
+		<![CDATA[
+			DELETE FROM otppms_userinfo WHERE 1=1 and userid = #userId# and domainid=#domainId#
+		]]>
+	</delete>
+	
+	<!--delete user token bind -->
+	<delete id="deleteUTI" parameterClass="userInfo">
+		<![CDATA[
+			DELETE FROM otppms_user_token WHERE 1=1 and userid = #userId# and domainid=#domainId#
+		]]>
+	</delete>
+  
+    <!-- enabled user -->
+	<update id="updateUIEnabled" parameterClass="userInfo">
+	     update otppms_userinfo set enabled=#enabled#  where userid=#userId# and domainId=#domainId#
+	</update>
+  
+
+    <!-- update single user's org -->
+	<update id="updateUIOrgunit" parameterClass="userInfo">
+	     update otppms_userinfo set domainid=#domainId# , orgunitid=#orgunitId#  where userid=#userId# and domainId=#domainId#
+	</update>
+
+	<!-- update user's org in org fan wei nei -->
+	<update id="updateUIOrgunits" parameterClass="userInfo">
+		<![CDATA[
+	     update otppms_userinfo set  orgunitid=#newOrgunitId#  where  domainId=#domainId# 
+	    ]]> 
+	    <dynamic>
+	     <isNotNull  property="orgunitId" prepend="and">
+			<isNotEmpty property="orgunitId">
+				orgunitId  = #orgunitId#
+			</isNotEmpty>
+		</isNotNull>
+		<isNull  property="orgunitId" prepend="and">
+				orgunitId is null
+		</isNull>
+	    </dynamic>
+	</update>
+	
+	<!-- add Radius config -->
+	<update id="updateRadId" parameterClass="userInfo">
+	     update otppms_userinfo set radprofileid=#radProfileId# where userid=#userId# and domainId=#domainId#
+	</update>
+	
+	<!-- set backend auth -->
+	<update id="updateBackEndId" parameterClass="userInfo">
+	     update otppms_userinfo set backendauth=#backEndAuth# where userid=#userId# and domainId=#domainId#
+	</update>
+	
+	<!-- set local auth mode -->
+	<update id="updateLocalAuthId" parameterClass="userInfo">
+	     update otppms_userinfo set localauth=#localAuth#,pwd=#pwd# where userid=#userId# and domainId=#domainId#
+	</update>
+	
+	<select id="selectUserToRad" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	SELECT
+	    		u.userid,
+	    		u.realname,
+				u.localauth,
+				u.pwd,
+				u.pwddeath,
+				u.getpwddeath,			
+				u.paperstype,
+				u.papersnumber,
+				u.email,
+				u.address,
+				u.tel,
+				u.cellphone,
+				u.locked ,
+				u.temploginerrcnt,
+				u.longloginerrcnt,
+				u.loginlocktime,
+				u.logincnt,
+				u.lastlogintime,
+				u.backendauth,
+				u.enabled,
+				u.domainid,
+				u.createtime 
+			from otppms_userinfo u where 1=1
+	    ]]>
+	    <dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty property="radProfileId" prepend="and">
+					u.radprofileid = #radProfileId#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+	<select id="selectUserToSms" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+	    	SELECT
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+			u.domainid,
+			u.createtime 
+			from otppms_userinfo u where 1=1
+	    ]]>
+	    <dynamic prepend="">
+			<isNotNull property="userId" prepend="and">
+				<isNotEmpty property="userId">
+					u.userid = #userId#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="batchIds" prepend="and">
+				u.userid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+</sqlMap>

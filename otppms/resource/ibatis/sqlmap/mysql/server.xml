@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="server_info">
+	  <select id="selectSR" parameterMap="parameterMap_sr"
+		resultClass="serverInfo">
+		<![CDATA[
+			SELECT
+	    		hostname,hostipaddr,confid,priority,licid,protocoltype,
+	    		authport,syncport,ftradiusenabled,radiusenabled,radauthport,httpenabled,httpport,httpsenabled,httpsport,keystorepwd,
+	    		certificatepwd,keystoreinstance,keystorerootpath,soapenabled,soapport,webservicename,descp
+       		FROM otppms_hostinfo 
+       		WHERE 1=1
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="hostipaddr" prepend="and">
+				<isNotEmpty property="hostipaddr">
+					hostipaddr like '%$hostipaddr$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="hostname" prepend="and">
+				<isNotEmpty property="hostname">
+					hostname like '%$hostname$%'
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+			order by hostipaddr asc
+            LIMIT #pageSize#
+            OFFSET #startRow#
+        ]]>
+	</select>
+ 
+</sqlMap>

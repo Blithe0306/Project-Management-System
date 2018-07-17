@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="access_info">
+
+	<typeAlias alias="accessInfo"
+		type="com.ft.otp.manager.confinfo.access.entity.AccessInfo" />
+
+	<sql id="queryFilter">
+		<dynamic prepend="">
+			<isNotEmpty property="id" prepend="and">
+				<isNotEqual property="id" compareValue="0">
+					id = #id#
+				</isNotEqual>
+			</isNotEmpty>
+			<isNotNull property="startip" prepend="and">
+				<isNotEmpty property="startip">
+					startip =#startip#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="endip" prepend="and">
+				<isNotEmpty property="endip">endip =#endip#</isNotEmpty>
+			</isNotNull>
+			<isNotEqual compareValue="-1" property="systype">
+				<isNotNull property="systype" prepend="and">
+					<isNotEmpty property="systype">
+						systype =#systype#
+					</isNotEmpty>
+				</isNotNull>
+			</isNotEqual>
+		</dynamic>
+	</sql>
+
+	<select id="selectAccessI" parameterClass="accessInfo"
+		resultClass="accessInfo">
+		<![CDATA[
+	    	SELECT id, systype, clientapptype, startip, endip, expiretime, updatetime, enabled, clientappport, clientservpath
+	    	FROM otppms_trustipinfo 
+	    	WHERE 1=1
+        ]]>
+		<include refid="queryFilter" />
+	</select>
+
+	<delete id="delAccessI" parameterClass="accessInfo">
+		<![CDATA[
+    		DELETE FROM	otppms_trustipinfo WHERE systype = #systype#
+    	]]>
+	</delete>
+
+	<insert id="addAccessI" parameterClass="accessInfo">
+		INSERT INTO otppms_trustipinfo (systype, clientapptype, startip,
+		endip, expiretime, updatetime, enabled, clientappport,
+		clientservpath) VALUES (#systype#, #clientapptype#, #startip#,
+		#endip#, #expiretime#, #updatetime#, #enabled#, #clientappport#,
+		#clientservpath#)
+	</insert>
+
+	<select id="findAccessI" parameterClass="accessInfo"
+		resultClass="accessInfo">
+		<![CDATA[
+	    	SELECT id, systype, clientapptype, startip, endip, expiretime, updatetime, enabled, clientappport, clientservpath
+	    	FROM otppms_trustipinfo 
+	    	WHERE 1=1
+        ]]>
+		<include refid="queryFilter" />
+	</select>
+
+	<select id="selectAccIPD" parameterClass="accessInfo"
+		resultClass="accessInfo">
+		<![CDATA[
+	    	SELECT id, systype, clientapptype, startip, endip, expiretime, updatetime, enabled
+	    	FROM otppms_trustipinfo 
+	    	WHERE 1=1 and endip != ''
+        ]]>
+	</select>
+
+</sqlMap>

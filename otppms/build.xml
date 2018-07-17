@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="otppms" basedir="." default="package">
+	<property file="build.properties" />
+
+	<!-- 发行包内容存放目录 -->
+	<property name="otppms.dir" value="${basedir}/otppms" />
+	<!-- java源代码目录 -->
+	<property name="src.dir" value="${basedir}/src" />
+	<!-- jar包目录 -->
+	<property name="jars.dir" value="${basedir}/lib" />
+	<!-- Web目录 -->
+	<property name="web.dir" value="${basedir}/webapp" />
+	<!-- classes目录,编译之后的class、多语言资源文件以及一些配置文件 -->
+	<property name="classes.dir" value="${otppms.dir}/WEB-INF/classes" />
+	<!-- jar包最终目录 -->
+	<property name="lib.dir" value="${otppms.dir}/WEB-INF/lib" />
+	<!-- 临时目录 -->
+	<property name="temp.dir" value="${basedir}/temp1234" />
+	<!-- 版本 -->
+	<property name="otppms.version" value="1.0" />
+
+	<!-- 加载的jar包 -->
+	<path id="project.class.path">
+		<fileset dir="${jars.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement path="${classes.dir}" />
+	</path>
+
+	<!-- 准备工作 -->
+	<target name="init" depends="">
+		<!-- 清除原来的内容,如果有的话 -->
+		<delete dir="${temp.dir}" />
+		<delete dir="${otppms.dir}" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${lib.dir}" />
+
+		<!-- 创建目录 -->
+		<mkdir dir="${temp.dir}" />
+		<mkdir dir="${otppms.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${lib.dir}" />
+
+		<!-- 拷贝.java文件,资源文件到临时目录 -->
+		<copy todir="${temp.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/src" />
+			</fileset>
+		</copy>
+
+		<!-- 把资源文件拷到classes目录 -->
+		<copy todir="${classes.dir}">
+			<fileset dir="${basedir}/resource">
+				<exclude name="**/*.java" />
+				<exclude name="**/.svn/**" />
+				<exclude name="**/*.log" />
+				<exclude name="**/.**" />
+			</fileset>
+		</copy>
+
+		<copy todir="${otppms.dir}">
+			<fileset dir="${web.dir}">
+			</fileset>
+		</copy>
+
+		<tstamp />
+	</target>
+
+	<!-- 编译.java到指定目录 -->
+	<target name="compile" depends="init" description="compile the source ">
+		<javac srcdir="${temp.dir}" destdir="${classes.dir}" source="1.5" memoryMaximumSize="256m" fork="true" includeAntRuntime="false" encoding="UTF-8" debug="false" deprecation="false">
+			<classpath refid="project.class.path" />
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+
+	<!-- 打包 -->
+	<target name="package" depends="compile">
+		<!-- 把jar文件拷到相应的目录 -->
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}">
+				<exclude name="jsp-api.jar" />
+				<exclude name="servlet-api.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/commons">
+				<exclude name="**/commons" />
+			</fileset>
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/db">
+				<exclude name="**/db" />
+			</fileset>
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/ibatis" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/spring" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/struts" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/tools" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/sigar" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/soap" />
+		</copy>
+		<copy todir="${lib.dir}">
+			<fileset dir="${jars.dir}/report" />
+		</copy>
+
+		<!-- 删除拷入的jar目录 -->
+		<delete dir="${lib.dir}/commons" />
+		<delete dir="${lib.dir}/db" />
+		<delete dir="${lib.dir}/ibatis" />
+		<delete dir="${lib.dir}/spring" />
+		<delete dir="${lib.dir}/struts" />
+		<delete dir="${lib.dir}/tools" />
+		<delete dir="${lib.dir}/sigar" />
+		<delete dir="${lib.dir}/soap" />
+		<delete dir="${lib.dir}/report" />
+
+		<!-- 压缩 -->
+		<zip destfile="${otppms.dir}/../otppms-${DSTAMP}.zip" basedir="${basedir}/otppms" />
+
+		<!-- 删除临时目录 -->
+		<delete dir="${temp.dir}" />
+		<delete dir="${otppms.dir}" />
+	</target>
+
+</project>

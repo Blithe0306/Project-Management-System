@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_user">
+ 
+	<select id="selectAU" resultClass="adminUser"
+		parameterMap="parameterMap_au">
+		<![CDATA[
+	   	SELECT 
+    		  adminid,
+    		  realname,
+    		  pwd, 
+    		  pwdsettime, 
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+            FROM 
+         ]]>
+         <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+				   (select top $pageSize$ * from otppms_admininfo where 1=1  
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdUserCondition" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				 	and adminid not in (select top $startRow$ adminid  from otppms_admininfo where 1=1  
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdUserCondition" />
+         </dynamic>
+		 <![CDATA[
+			order by createtime asc) order by createtime asc) otppms_admininfo order by createtime asc 
+		 ]]>
+	</select>
+	
+		<!-- filter super admin -->
+		<select id="selectAUExceptPowerAdmin" resultClass="adminUser"
+		parameterMap="parameterMap_au">
+		<![CDATA[
+	   	SELECT
+    		  adminid,
+    		  realname,
+    		  pwd, 
+    		  pwdsettime, 
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+            FROM 
+         ]]>
+         <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+				(select top $pageSize$ * from otppms_admininfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdmCondition" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				 and adminid not in (select top $startRow$ adminid  from otppms_admininfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdmCondition" />
+         </dynamic>	
+		<![CDATA[
+			order by createtime asc) order by createtime asc) otppms_admininfo order by createtime asc 
+		]]>
+	</select>
+	
+	<select id="selectSelfChildOU" resultClass="adminUser"
+		parameterMap="parameterMap_au">
+		<![CDATA[
+	   	SELECT
+    		  adminid,
+    		  realname,
+    		  pwd, 
+    		  pwdsettime, 
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+       	 from
+        ]]>
+
+		<dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+					(select top $pageSize$ * from (SELECT * FROM otppms_admininfo WHERE createuser =#loginUser# union all select * FROM otppms_admininfo where adminid = #loginUser#)otppms_admininfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdUserCondition" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+					 and adminid not in (select top $startRow$ adminid  from (SELECT * FROM otppms_admininfo WHERE createuser =#loginUser# union all select * FROM otppms_admininfo where adminid = #loginUser#)otppms_admininfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryAdUserCondition" />
+         </dynamic>	
+		<![CDATA[
+			order by createtime asc) order by createtime asc) otppms_admininfo order by createtime asc 
+		]]>
+	</select>
+</sqlMap>
+ 

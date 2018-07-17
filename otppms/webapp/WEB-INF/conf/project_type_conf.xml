@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type-conf>
+	
+	<type id="1001">
+		<typeName>新定制</typeName>
+		<version></version>
+	</type>
+	<type id="1002">
+		<typeName>OTP认证引擎</typeName>
+		<version>1.0,1.1,1.2beta</version>
+	</type>
+	<type id="1003">
+		<typeName>OTP Server</typeName>
+		<version>1.0,2.0,3.0,3.2,4.0,4.2,4.5</version>
+	</type>
+	<type id="1004">
+		<typeName>OTP 认证代理</typeName>
+		<version>1.0,2.0,3.0,3.2,4.0,4.2,4.5</version>
+	</type>
+	<type id="1005">
+		<typeName>OTP手机令牌</typeName>
+		<version>1.0,2.0,2.1</version>
+	</type>
+	<type id="1006">
+		<typeName>OTP非接烧写</typeName>
+		<version>1.1</version>
+	</type>
+	<type id="1007">
+		<typeName>其他</typeName>
+		<version></version>
+	</type>
+</type-conf>

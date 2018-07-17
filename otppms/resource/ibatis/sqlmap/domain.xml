@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="domain_info">
+
+	<typeAlias alias="domainInfo"
+		type="com.ft.otp.manager.orgunit.domain.entity.DomainInfo" />
+	<parameterMap class="domainInfo" id="parameterMap_di">
+		<parameter property="domainId" javaType="int"
+			jdbcType="Integer" />
+		<parameter property="domainSn" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="domainName" javaType="string"
+			jdbcType="VARCHAR" />		
+  </parameterMap>
+ 
+ 
+  
+	 
+ 	<select id="countDI" resultClass="int"
+		parameterMap="parameterMap_di">
+		<![CDATA[
+	   	SELECT
+    		count(d.domainid)
+            FROM   otppms_domaininfo d
+         ]]>
+         <dynamic prepend="">
+			<isNotNull property="isFilterTag" >
+				<isNotEmpty property="isFilterTag">
+					<isEqual compareValue="1" property="isFilterTag">
+						right join otppms_admin_orgunit ao on ao.domainid=d.domainid 
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+			
+			
+		</dynamic>
+         <![CDATA[   
+            where 1=1
+         ]]>
+		<dynamic prepend="">
+    	   <isNotNull property="adminId" prepend="and">
+				<isNotEmpty property="adminId">
+					ao.adminid=#adminId# and ao.orgunitid is null
+				</isNotEmpty>
+			</isNotNull>
+			
+			<isNotNull property="domainSn" prepend="and">
+				<isNotEmpty property="domainSn">
+					d.domainSn like '%$domainSn$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="domainName" prepend="and">
+				<isNotEmpty property="domainName">
+					d.domainName like '%$domainName$%'
+				</isNotEmpty>
+			</isNotNull>
+			
+    	</dynamic>  	
+	</select>
+	
+	
+	<select id="findDI" parameterClass="domainInfo" resultClass="domainInfo">
+		<![CDATA[
+	   	SELECT
+    		  domainId,
+    		  domainSn,
+    		  domainName,     		  
+    		  descp
+            FROM otppms_domaininfo WHERE 1=1
+         ]]>
+		<dynamic prepend="">		
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+				domainId=#domainId#
+			</isNotEqual> 				
+			<isNotNull property="domainSn" prepend="and">
+				<isNotEmpty property="domainSn">
+				       domainSn =#domainSn#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="domainName" prepend="and">
+				<isNotEmpty property="domainName">
+				       domainName =#domainName#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotEqual compareValue="0" property="createTime" prepend="and">
+				createtime=#createTime#
+			</isNotEqual>
+			
+		</dynamic>
+	</select>
+ <delete id="deleteDI" parameterMap="parameterMap_di">
+		<![CDATA[
+    		DELETE FROM	otppms_domaininfo WHERE 1=1 
+    	]]>	
+		<dynamic prepend="">
+			<isNotNull property="domainId" prepend="and">
+				<isNotEqual compareValue="0" property="domainId" >
+					domainId =#domainId#
+				</isNotEqual>
+			</isNotNull>
+			
+			<isNotNull property="batchIdsInt" prepend="and"><!-- use delete more domain -->
+				domainId IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+	
+ <update id="updateDI" parameterClass="domainInfo">
+   <![CDATA[
+   update otppms_domaininfo set domainsn=#domainSn#, domainname=#domainName#,descp=#descp# where domainid=#domainId#
+     ]]>
+  </update>
+ 
+  <insert id="insertDI" parameterClass="domainInfo">
+   <![CDATA[ 
+   insert into otppms_domaininfo(domainsn, domainname,  descp,createtime) 
+   		values(#domainSn#, #domainName#, #descp#,#createTime#)
+   ]]>
+  </insert>
+  
+  <sql id="queryDomainCondition">
+  	<dynamic prepend="">
+	  	<isNotNull property="isFilterTag" >
+			<isNotEmpty property="isFilterTag">
+				<isEqual compareValue="1" property="isFilterTag">
+					right join otppms_admin_orgunit ao on ao.domainid=f.domainid 
+				</isEqual>
+			</isNotEmpty>
+		</isNotNull>
+	</dynamic>
+  	<![CDATA[
+	    WHERE 1=1
+	]]>
+  	<dynamic prepend="">
+  		<isNotNull property="adminId" prepend="and">
+			<isNotEmpty property="adminId">
+				ao.adminid=#adminId# and ao.orgunitid is null
+			</isNotEmpty>
+		</isNotNull>
+			<isNotNull property="domainSn" prepend="and">
+			<isNotEmpty property="domainSn">
+				f.domainSn like '%$domainSn$%'
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="domainName" prepend="and">
+			<isNotEmpty property="domainName">
+				f.domainName like '%$domainName$%'
+			</isNotEmpty>
+		</isNotNull>
+  	</dynamic>
+  </sql>
+  
+</sqlMap>
+ 

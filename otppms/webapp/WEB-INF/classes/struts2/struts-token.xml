@@ -1,0 +1,49 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="struts-base.xml" />
+
+	<package name="webapp-token" extends="webapp-base">
+
+		<!-- TokenAction -->
+		<action name="token" class="tokenAction">
+			<result name="success">/manager/token/list.jsp</result>
+			<result name="view">/manager/token/view.jsp</result>
+			<result name="find">/manager/token/bind_pin.jsp</result>
+			<result name="count">/manager/token/tkncount.jsp</result>
+			<result name="softTknDist">
+				/manager/token/softtkn_dist.jsp
+			</result>
+		</action>
+
+		<!-- ImportAction -->
+		<action name="importToken" class="importTokenAction">
+			<result name="success">/manager/token/import/import.jsp</result>
+		</action>
+
+		<!-- DistmanagerAction -->
+		<action name="distManager" class="distmanagerAction">
+			<result name="success">
+				/manager/token/distmanager/list.jsp
+			</result>
+			<result name="find">
+				/manager/token/distmanager/bindsign.jsp
+			</result>
+			<result name="dist_find">
+				/manager/token/distmanager/dist.jsp
+			</result>
+			<result name="view">
+				/manager/token/distmanager/viewdist.jsp
+			</result>
+		</action>
+		
+		<!-- AuthAction -->
+		<action name="authAction" class="authAction">
+			<result name="success">/manager/token/list.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

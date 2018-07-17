@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_and_orgunit">
+    <typeAlias alias="adminAndOrgunit"
+		type="com.ft.otp.manager.admin.admin_orgunit.entity.AdminAndOrgunit" />
+		
+	<parameterMap class="adminAndOrgunit" id="parameterMap_ano">
+		<parameter property="orgunitId" javaType="int"
+			jdbcType="Integer" />
+		<parameter property="adminId" javaType="string"
+			jdbcType="VARCHAR" />
+			<parameter property="domainId" javaType="int"
+			jdbcType="Integer" />
+	</parameterMap>
+
+	<!-- by special condition filter -->
+	 <sql id="queryAdminAndOrgunit">
+	    <dynamic prepend="">
+			<isNotNull property="adminId" prepend="and">
+				<isNotEmpty property="adminId">
+					adminid = #adminId#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+					domainid = #domainId#
+			</isNotEqual>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="0" property="orgunitId" prepend="and">
+				<isNotNull  property="orgunitId" >
+					<isNotEmpty property="orgunitId">
+						orgunitid = #orgunitId#
+					</isNotEmpty>
+				</isNotNull>
+				<isNull  property="orgunitId" >
+					 <isEmpty property="orgunitId">
+						orgunitid is null
+					 </isEmpty>	
+				</isNull>
+			</isNotEqual>
+		</dynamic>
+	 </sql>
+	
+	<insert id="insertAO" parameterClass="adminAndOrgunit">
+		<![CDATA[
+    				INSERT INTO otppms_admin_orgunit(adminid,domainid,orgunitid)
+    		                    VALUES(#adminId#,#domainId#,#orgunitId#)
+    	]]>
+	</insert>
+	
+	<delete id="deleteAAO" parameterMap="parameterMap_ano">
+	 	<![CDATA[
+    		DELETE FROM	otppms_admin_orgunit  WHERE 1=1 
+    	]]>
+		<include refid="queryAdminAndOrgunit" /> 
+	</delete>
+	
+	
+</sqlMap>
+
+

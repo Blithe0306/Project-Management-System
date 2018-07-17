@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-lazy-init="true">
+
+	<!-- DATABASE RESOURCE DEFINITIONS -->
+	<bean id="dataSource" class="com.ft.otp.common.database.DbFactory"
+		init-method="init">
+	</bean>
+
+	<!-- Spring JDBC事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="rollbackOnCommitFailure" value="true"></property>
+	</bean>
+
+
+	<!-- iBatis SqlMapClient 定义 -->
+	<bean id="sqlMapClient"
+		class="com.ft.otp.core.springext.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:ibatis/sqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="_baseSqlMapClientTarget" abstract="true">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dept-conf>
+  <dept id="1001">
+    <deptName>金融业务部</deptName>
+  </dept>
+  <dept id="1002">
+    <deptName>ePass销售部</deptName>
+  </dept>
+  <dept id="1003">
+    <deptName>国际部</deptName>
+  </dept>
+  <dept id="1004">
+    <deptName>华东营销中心</deptName>
+  </dept>
+  <dept id="1005">
+    <deptName>华南营销中心</deptName>
+  </dept>
+  <dept id="1006">
+    <deptName>华中营销中心</deptName>
+  </dept>
+  <dept id="1007">
+    <deptName>西南营销中心</deptName>
+  </dept>
+  <dept id="1008">
+    <deptName>坚石诚信</deptName>
+  </dept>
+  <dept id="1009">
+    <deptName>加密锁销售部</deptName>
+  </dept>
+  <dept id="1010">
+    <deptName>产品部</deptName>
+  </dept>
+  <dept id="1011">
+    <deptName>技术服务部</deptName>
+  </dept>
+  <dept id="1012">
+    <deptName>总经办</deptName>
+  </dept>
+  <dept id="1013">
+    <deptName>生产中心</deptName>
+  </dept>
+  <dept id="1014">
+    <deptName>Rockey</deptName>
+  </dept>
+    <dept id="1015">
+    <deptName>其他部门</deptName>
+  </dept>
+</dept-conf>

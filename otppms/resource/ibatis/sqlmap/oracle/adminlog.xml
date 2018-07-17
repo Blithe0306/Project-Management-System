@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_log">
+	<select id="selectAL" resultClass="adminlogInfo"
+		parameterMap="parameterMap_al">
+		<![CDATA[
+		select * from (
+		    select rownum as rn,t.* from ( 
+		    	select id,
+    				operator,
+    				logtime,
+    				actionid,
+		    		actionresult,
+		    		actionobject,
+		    		clientip,
+		    		descp,
+		    		hashcode  
+    			from otppms_admin_log  where 1=1 
+    	]]>
+		<include refid="queryAdminLogCondition" />
+		<![CDATA[       		
+        	 order by id desc) t where rownum < = #endRow#) tt where rn > #startRow# order by id desc   
+        ]]>
+	</select>
+</sqlMap>

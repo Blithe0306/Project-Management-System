@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="sms_info">
+
+	<typeAlias alias="smsInfo"
+		type="com.ft.otp.manager.confinfo.sms.entity.SmsInfo" />
+
+	<sql id="queryFilter">
+		<dynamic prepend="">
+			<isNotEmpty property="id" prepend="and">
+				<isNotEqual property="id" compareValue="0">
+					id = #id#
+				</isNotEqual>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotNull property="smsname" prepend="and">
+				<isNotEmpty property="smsname">
+					smsname = #smsname#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</sql>
+	
+	<select id="countSMS" resultClass="int" parameterClass="smsInfo">
+		<![CDATA[             
+	    	select count(id) from otppms_smsinfo WHERE 1=1
+	    ]]>
+	    <include refid="queryFilter" />
+	</select>
+	
+	<insert id="insertSMS" parameterClass="smsInfo">
+		<![CDATA[
+    		INSERT INTO otppms_smsinfo 
+    		(smsname, sendtype, host, username, pwd, accountattr, passwdattr, phoneattr, messageattr,
+	    	       paramannex, sendresult, enabled, priority, retrysend, descp) 
+    		VALUES 
+    		(#smsname#, #sendtype#, #host#, #username#, #pwd#, #accountattr#, #passwdattr#, #phoneattr#, #messageattr#,
+	    	       #paramannex#, #sendresult#, #enabled#, #priority#, #retrysend#, #descp#)
+    	]]>
+	</insert>
+	
+	<select id="findSMS" resultClass="smsInfo"  parameterClass="smsInfo" >
+		<![CDATA[
+		    SELECT
+    			id, smsname, sendtype, host, username, pwd, accountattr, passwdattr, phoneattr, messageattr,
+	    	       paramannex, sendresult, enabled, priority, retrysend, descp
+			from otppms_smsinfo WHERE 1=1 
+         ]]>
+		<include refid="queryFilter" />
+	</select>
+	
+	<update id="updateSMS" parameterClass="smsInfo">
+		<![CDATA[
+	   	UPDATE otppms_smsinfo SET 
+	   	smsname = #smsname#, sendtype = #sendtype#, host = #host#, username = #username#, pwd = #pwd#, accountattr = #accountattr#, 
+	   	passwdattr = #passwdattr#, phoneattr = #phoneattr#, messageattr = #messageattr#,
+	   	paramannex = #paramannex#, sendresult = #sendresult#, enabled = #enabled#, 
+	   	priority = #priority#, retrysend = #retrysend#, descp = #descp#
+	   	WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteSMS" parameterClass="smsInfo">
+		<![CDATA[
+			DELETE FROM otppms_smsinfo WHERE 1=1 AND id = #id#
+		]]>
+	</delete>
+	
+	<update id="enabledSMS" parameterClass="smsInfo">
+	     update otppms_smsinfo set enabled=#enabled#  where id=#id#
+	</update>
+	
+</sqlMap>

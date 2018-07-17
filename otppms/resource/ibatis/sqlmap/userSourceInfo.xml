@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="usersource_info">
+	<typeAlias alias="usInfo"
+		type="com.ft.otp.manager.confinfo.usersource.entity.UserSourceInfo" />
+		
+	<parameterMap class="usInfo" id="parameterMap_us">
+	    <parameter property="id"          javaType="int"     jdbcType="INTEGER" />
+		<parameter property="sourcename"  javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="sourcetype"  javaType="int"     jdbcType="INTEGER" />
+		<parameter property="dbtype"      javaType="int"     jdbcType="INTEGER" />
+		<parameter property="serveraddr"  javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="port"        javaType="int"     jdbcType="INTEGER" />
+		<parameter property="username"    javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="pwd"      	  javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="dbname"      javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="dbtablename" javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="filter"      javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="basedn"      javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="dominodriver"    javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="namesfile"   javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="timeout"     javaType="int"     jdbcType="INTEGER" />
+		<parameter property="descp"       javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="domainid"    javaType="int"     jdbcType="INTEGER" />
+		<parameter property="orgunitid"   javaType="int"     jdbcType="INTEGER" />
+		
+		<parameter property="localuserattr"    javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="sourceuserattr"   javaType="string"  jdbcType="VARCHAR" />
+		
+		<parameter property="domainname"    javaType="string"  jdbcType="VARCHAR" />
+		<parameter property="orgunitname"   javaType="string"  jdbcType="VARCHAR" />
+	</parameterMap>
+
+	 <insert id="insertUS" parameterClass="usInfo">
+		<![CDATA[
+    		INSERT INTO otppms_usersource(sourcename,sourcetype,dbtype,serveraddr,port,username,pwd,
+    		                             dbname,dbtablename,filter,basedn,rootdn,dominodriver,namesfile,timeout,isupdateou,upinvaliduser,domainid,orgunitid,localusermark,issyncuserinfo, descp)
+    		                    VALUES(#sourcename#,#sourcetype#,#dbtype#,#serveraddr#,#port#,#username#,#pwd#,#dbname#,
+    		                    #dbtablename#,#filter#,#basedn#,#rootdn#,#dominodriver#,#namesfile#,#timeout#,#isupdateou#,#upinvaliduser#,#domainid#,#orgunitid#,#localusermark#,#issyncuserinfo#,#descp#)
+    	]]>
+	</insert>  
+ 
+ 	 <select id="findUS" parameterClass="usInfo"
+		resultClass="usInfo">
+		<![CDATA[
+		 select id,
+			     us.sourcename,
+			     us.sourcetype,
+			     us.dbtype,
+			     us.serveraddr,
+			     us. port,
+			     us.username,
+			     us.pwd,
+	    		 us. dbname,
+	    		 us.dbtablename,
+	    		 us.filter,
+	    		 us.basedn,
+	    		 us.rootdn,
+	    		 us.dominodriver,
+	    		 us.namesfile,
+	    		 us.timeout,
+	    		 us.isupdateou,
+	    		 us.upinvaliduser,
+	    		 us.domainid,
+	    		 us.orgunitid,
+	    		 us.localusermark,
+	    		 us.issyncuserinfo,
+				 dm.domainname,
+				 og.orgunitname,
+	    		us.descp from otppms_usersource   us left join otppms_domaininfo dm on us.domainid = dm.domainid
+									    left join otppms_orgunitinfo og  on dm.domainid = og.domainid  and  og.orgunitid = us.orgunitid where 1=1
+         ]]>
+          <dynamic prepend="">
+           <isNotNull property="id" >
+				<isNotEqual property="id" prepend="and" compareValue="0">
+					us.id = #id#
+				</isNotEqual>
+			</isNotNull>
+            <isNotNull property="sourcetype" >
+				<isNotEqual property="sourcetype" prepend="and" compareValue="-1">
+					us.sourcetype = #sourcetype#
+				</isNotEqual>
+			</isNotNull>
+			<isNotNull property="sourcename" prepend="and">
+				<isNotEmpty property="sourcename">
+					us.sourcename = #sourcename#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select> 
+
+	  <update id="updateUS" parameterClass="usInfo">
+		<![CDATA[
+		   update otppms_usersource set
+					sourcename=#sourcename#,
+				    sourcetype=#sourcetype#,
+				    dbtype=#dbtype#,
+				    serveraddr=#serveraddr#,
+				    port=#port#,
+				    username=#username#,
+				    pwd=#pwd#,
+		    		dbname=#dbname#,
+		    		dbtablename=#dbtablename#,
+		    		filter=#filter#,
+		    		basedn=#basedn#,
+		    		rootdn=#rootdn#,
+		    		dominodriver=#dominodriver#,
+		    		namesfile=#namesfile#,
+		    		timeout=#timeout#,
+		    		isupdateou=#isupdateou#,
+		    		upinvaliduser=#upinvaliduser#,
+		    		domainid=#domainid#,
+	    			orgunitid=#orgunitid#,
+	    			localusermark=#localusermark#,
+	    			issyncuserinfo=#issyncuserinfo#,
+		    		descp =#descp#
+                WHERE id= #id# 
+         ]]>
+	</update> 
+
+	<select id="countUS" resultClass="int"
+		parameterMap="parameterMap_us">
+		<![CDATA[
+            select count(id) from otppms_usersource where 1=1
+          ]]>
+          <dynamic prepend="">
+			<isNotNull property="sourcename" prepend="and">
+				<isNotEmpty property="sourcename">
+					sourcename like '%$sourcename$%'
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+ 
+ 
+    <insert id="insertAttrUS" parameterClass="usInfo">
+		<![CDATA[
+    		INSERT INTO otppms_usersource_attr(sourceid,localuserattr,sourceuserattr)
+    		                    VALUES(#id#,#localuserattr#,#sourceuserattr#)
+    	]]>
+	</insert>  
+	
+	 <insert id="deleteAttrUS" parameterClass="usInfo">
+		<![CDATA[
+    		delete from otppms_usersource_attr where sourceid = #id#
+    	]]>
+	</insert>  
+	
+      <select id="queryAttrUS" parameterMap="parameterMap_us"
+		resultClass="usInfo">
+		<![CDATA[
+		 select sourceid as id,localuserattr,sourceuserattr  from otppms_usersource_attr where 1=1
+         ]]>
+          <dynamic prepend="">
+	            <isNotNull property="id" >
+					<isNotEqual property="id" prepend="and" compareValue="0">
+						sourceid = #id#
+					</isNotEqual>
+				</isNotNull>
+		</dynamic>
+	</select> 
+	
+    <delete id="deleteUS" parameterMap="parameterMap_us">
+		<![CDATA[
+    		DELETE FROM	otppms_usersource WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIdsInt" prepend="and">
+				id IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete> 
+
+</sqlMap>

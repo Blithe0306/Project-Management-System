@@ -1,0 +1,21 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<include file="struts-base.xml" />
+
+	<package name="webapp-lic" extends="webapp-base">
+
+		<!-- LicenseAction -->
+		<action name="license" class="licInfoAction">
+			<result name="success">/install/uploadLic.jsp</result>
+		</action>
+
+		<!-- Add actions here -->
+	</package>
+
+	<!-- Add packages here -->
+
+</struts>

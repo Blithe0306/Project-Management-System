@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="dist_managerInfo">
+	<typeAlias alias="distmanagerInfo"
+		type="com.ft.otp.manager.token.distmanager.entity.DistManagerInfo" />
+	<parameterMap class="distmanagerInfo" id="parameterMap_td">
+		<parameter property="token" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="pubkeyfactor" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="phoneudid" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="activepass" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="apretry" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="apdeath" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="actived" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="activetime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="provtype" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="exttype" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="userName" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="startTime" javaType="int" jdbcType="INTEGER" />
+		<parameter property="endTime" javaType="int" jdbcType="INTEGER" />
+	</parameterMap>
+	 
+	<sql id="queryDistManagerCondition">
+		<dynamic>
+		   <isNotNull>
+				<isNotEmpty property="userName" prepend="and">
+					otppms_tokenext.token  in(select token from otppms_user_token where userid like '%$userName$%')
+				</isNotEmpty>
+			</isNotNull>
+			
+			<isNotNull>
+				<isNotEmpty property="token" prepend="and">
+					otppms_tokenext.token like '%$token$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="-2" property="provtype"
+				prepend="and">
+				otppms_tokenext.provtype = #provtype#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="actived"
+				prepend="and">
+				otppms_tokenext.actived = #actived#
+			</isGreaterThan>
+			<isNotNull>
+				<isNotEmpty property="phoneudid" prepend="and">
+					otppms_tokenext.phoneudid like '%$phoneudid$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="0" property="startTime"
+				prepend="and">
+				<![CDATA[ otppms_tokenext.activetime >= #startTime# ]]>
+			</isGreaterThan>
+			<isGreaterThan compareValue="0" property="endTime"
+				prepend="and">
+				<![CDATA[ otppms_tokenext.activetime <= #endTime# ]]>
+			</isGreaterThan>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					otppms_tokenext.token in (select tn.token from otppms_tokeninfo tn where (exists (select distinct fao.domainid from otppms_admin_orgunit fao where tn.domainid = fao.domainid and fao.adminid=#currentAdminId# and fao.orgunitid is null) and (tn.orgunitid is null))
+					or	exists (select distinct fao.orgunitid from otppms_admin_orgunit fao where tn.orgunitid = fao.orgunitid and fao.adminid=#currentAdminId# and tn.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+  </sql>
+	
+	<insert id="insertExtTK"  parameterClass="distmanagerInfo">
+		<![CDATA[
+		insert into otppms_tokenext(token,pubkeyfactor,phoneudid,activepass,apdeath,apretry,actived,activetime,provtype,exttype)values(
+		#token#,#pubkeyfactor#,#phoneudid#,#activepass#,#apdeath#,#apretry#,#actived#,#activetime#,#provtype#,#exttype#)
+          ]]>
+	</insert>
+	
+	
+	<select id="countTD" resultClass="int"
+		parameterMap="parameterMap_td">
+		<![CDATA[
+		    SELECT count(otppms_tokenext.token) 
+            from otppms_tokenext where  1=1
+          ]]>
+       <include refid="queryDistManagerCondition" />   
+	</select>
+    <select id="findTD" resultClass="distmanagerInfo"
+		parameterClass="distmanagerInfo">
+		<![CDATA[
+		    SELECT
+	    		token,
+	    		pubkeyfactor,
+	    		phoneudid,
+	    		activepass,
+	    		apdeath,
+	    		apretry,
+	    		actived,
+	    		activetime,
+	    		provtype,
+	    		exttype
+            from otppms_tokenext
+            where 1=1
+          ]]>
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty prepend="and" property="token">
+					token  =#token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	 </select>
+	 <update id="updateTD"  parameterClass="distmanagerInfo">
+		<![CDATA[
+	 UPDATE otppms_tokenext SET 
+		     actived=#actived# , 
+		     apdeath=#apdeath# , 
+		     token= #token#  , 
+		     activetime=#activetime# , 
+		     apretry=#apretry# , 
+		     provtype=#provtype# , 
+		     activepass= #activepass# , 
+		     phoneudid= #phoneudid#   
+	   WHERE token   =  #token# 
+          ]]>
+	</update>
+
+	
+	 
+</sqlMap>

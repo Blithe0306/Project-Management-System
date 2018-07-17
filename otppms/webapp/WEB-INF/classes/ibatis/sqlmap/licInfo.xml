@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="lic_Info">
+
+	<typeAlias alias="licenseInfo"
+		type="com.ft.otp.manager.lic.entity.LicInfo" />
+
+	<select id="findLic" parameterClass="licenseInfo"
+		resultClass="licenseInfo">
+		<![CDATA[
+			SELECT
+    		licid,
+			licinfo,
+			lictype,
+			issuer,
+    	    customerid,
+    	    licstate,
+    	    licupdatetime
+       		FROM otppms_licinfo WHERE 1=1
+        ]]>
+		<isNotNull property="licid" prepend="and">
+			<isNotEmpty property="licid">licid = #licid#</isNotEmpty>
+		</isNotNull>
+		<isGreaterThan property="licstate" compareValue="0"
+			prepend="and">
+			licstate = #licstate#
+		</isGreaterThan>
+	</select>
+
+	<insert id="insertLic" parameterClass="licenseInfo">
+		INSERT INTO otppms_licinfo(licid, licinfo, lictype, issuer,
+		customerid, licstate, licupdatetime) VALUES (#licid#, #licinfo#,
+		#lictype#, #issuer#, #customerid#, #licstate#, #licupdatetime#)
+	</insert>
+
+	<update id="updateLic" parameterClass="licenseInfo">
+		UPDATE otppms_licinfo SET licstate=#licstate# WHERE licid =
+		#licid#
+	</update>
+
+</sqlMap>

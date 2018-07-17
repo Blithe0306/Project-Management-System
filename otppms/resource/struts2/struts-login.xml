@@ -1,0 +1,34 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<include file="struts-base.xml" />
+
+	<package name="webapp-login" extends="webapp-base">
+
+		<!-- LoginAction -->
+		<action name="login" class="loginAction">
+			<result name="success">/manager/main/layout.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+
+		<!-- LogoutAction -->
+		<action name="logout"
+			class="com.ft.otp.manager.login.action.LogoutAction">
+			<result name="success">
+				/index.jsp
+			</result>
+			<result name="init">/install/index.jsp</result>
+		</action>
+
+		<!-- MainAction -->
+		<action name="main"
+			class="com.ft.otp.manager.main.MainAction">
+		</action>
+
+	</package>
+
+
+</struts>

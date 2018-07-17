@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System-conf>
+
+	<!-- 
+		多语言支持配置，系统理论上支持下列的所有的语言，如果需要支持下列语言中的一种，
+		请将对应的语言标识设置为:true，例如：<zh_CN>true</zh_CN> 
+	-->
+	<language-res>
+		<!-- China -->
+		<zh_CN>true</zh_CN>
+		<!-- United States -->
+		<en_US>false</en_US>
+		<!-- Japan -->
+		<ja_JP>false</ja_JP>
+		<!-- Saudia Arabia -->
+		<ar_SA>false</ar_SA>
+		<!-- Taiwan -->
+		<zh_TW>false</zh_TW>
+		<!-- Netherlands -->
+		<nl_NL>false</nl_NL>
+		<!-- Australia -->
+		<en_AU>false</en_AU>
+		<!-- Canada -->
+		<en_CA>false</en_CA>
+		<!-- United Kingdom -->
+		<en_GB>false</en_GB>
+		<!-- Canada -->
+		<fr_CA>false</fr_CA>
+		<!-- France -->
+		<fr_FR>false</fr_FR>
+		<!-- Germany -->
+		<de_DE>false</de_DE>
+		<!-- Israel -->
+		<he_IL>false</he_IL>
+		<!-- India -->
+		<hi_IN>false</hi_IN>
+		<!-- Italy -->
+		<it_IT>false</it_IT>
+		<!-- South Korea -->
+		<ko_KR>false</ko_KR>
+		<!-- Brazil -->
+		<pt_BR>false</pt_BR>
+		<!-- Spain -->
+		<es_ES>false</es_ES>
+		<!-- Sweden -->
+		<sv_SE>false</sv_SE>
+		<!-- Thailand -->
+		<th_TH>false</th_TH>
+		<!-- Thailand -->
+		<th_TH_TH>false</th_TH_TH>
+	</language-res>
+
+	<!-- 运行日志配置 -->
+	<!-- 
+		threshold 表示运行日志记录级别，您可以选择下列级别进行记录：
+		OFF (不记录运行日志)
+		ERROR (记录异常、错误日志)
+		WARN (记录警告日志)
+		INFO (记录基本信息日志)
+		DEBUG (记录调试信息日志)
+	-->
+	<!-- 
+		model表示日志记录模式。
+		1:按文件大小和文件个数滚动记录，
+		2:按时间周期进行日志记录，每个时间周期产生一个日志文件
+	-->
+	<!-- 
+		如果日志记录模式选择：1(model=1)，请配置file-size的文件大小和backup-index文件个数属性，
+		表示每个日志文件的最大容量(单位:KB)，和最多产生日志文件的个数(单位:个)。
+		如果日志文件容量达到配置的上限值，会生成一个新的文件，如果产生文件的个数达到最多日志文件个数的上限，
+		系统会清空第一个产生的日志文件，将日志信息记录到第一个文件，如些类推，循环、滚动的记录日志。
+		这种模式的优点是日志文件占用系统磁盘空间的总量始终保持不变。
+		file-size：每个日志文件的最大容量(单位:KB)，默认:1024KB。
+		backup-index：最多产生日志文件的个数(单位:个)，默认:10个。
+	-->
+	<!-- 
+		如果日志记录模式选择：2(model=2)，请配置time-period时间周期属性，表示每多少周期产生一个日志文件
+		1:每小时，2:每天，3:每周，4:每月，默认为2:每天
+	-->
+	<log-conf>
+		<threshold>ERROR</threshold>
+		<model>1</model>
+		<file-size>10240KB</file-size>
+		<backup-index>10</backup-index>
+
+		<time-period>2</time-period>
+	</log-conf>
+
+	<other>
+		<tpyrcne>y</tpyrcne>
+	</other>
+
+</System-conf>

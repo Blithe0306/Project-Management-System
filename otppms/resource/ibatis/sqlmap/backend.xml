@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="backend_info">
+
+	<typeAlias alias="backendInfo"
+		type="com.ft.otp.manager.authmgr.backend.entity.BackendInfo" />
+		
+	<sql id="queryFilter">
+		<dynamic prepend="">
+			<isNotEmpty property="id" prepend="and">
+				<isNotEqual property="id" compareValue="0">
+					id = #id#
+				</isNotEqual>
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotNull property="backendname" prepend="and">
+				<isNotEmpty property="backendname">
+					backendname = #backendname#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</sql>
+		
+	<select id="countBD" resultClass="int" parameterClass="backendInfo">
+		<![CDATA[
+	    	select count(id) from otppms_backend WHERE 1=1
+	    ]]>
+	    <include refid="queryFilter" />
+	</select>
+
+	 
+	
+	<insert id="insertBD" parameterClass="backendInfo">
+		<![CDATA[
+    		INSERT INTO otppms_backend 
+    		(backendtype, backendname, host, port, sparehost, priority, basedn, filter, pubkey,
+	    		   timeout, retrycnt, usernamerule, delimiter, enabled, policy, domainid) 
+    		VALUES 
+    		(#backendtype#, #backendname#, #host#, #port#, #sparehost#, #priority#, #basedn#, #filter#, #pubkey#,
+	    		   #timeout#, #retrycnt#, #usernamerule#, #delimiter#, #enabled#, #policy#, #domainid#)
+    	]]>
+	</insert>
+	
+	<update id="updateBD" parameterClass="backendInfo">
+		<![CDATA[
+	   	UPDATE otppms_backend SET 
+	   	backendtype = #backendtype#, 
+	   	backendname = #backendname#,host = #host#,port = #port#,sparehost = #sparehost#,priority = #priority#,basedn = #basedn#,
+	   	filter = #filter#,pubkey = #pubkey#,timeout = #timeout#,retrycnt = #retrycnt#, usernamerule = #usernamerule#,
+	   	delimiter = #delimiter#, enabled = #enabled#, policy = #policy#, domainid= #domainid#
+	   	WHERE id = #id#
+		]]>
+	</update>
+	
+	<select id="findBD" resultClass="backendInfo"  parameterClass="backendInfo" >
+		<![CDATA[
+		    SELECT
+    			id, backendtype, backendname, host, sparehost, port, priority, basedn, filter, pubkey,
+	    		   timeout, retrycnt, usernamerule, delimiter, enabled, policy, domainid
+			from otppms_backend WHERE 1=1 
+         ]]>
+		<include refid="queryFilter" />
+	</select>
+	
+	<delete id="deleteBD" parameterClass="backendInfo">
+		<![CDATA[
+			DELETE FROM otppms_backend WHERE 1=1 AND id = #id#
+		]]>
+	</delete>
+	
+	<select id="findUKBD" resultClass="backendInfo"  parameterClass="backendInfo" >
+		<![CDATA[
+		    SELECT
+    			id, backendtype, backendname, host, sparehost, port, priority, basedn, filter, pubkey,
+	    		   timeout, retrycnt, usernamerule, delimiter, enabled, policy, domainid
+			from otppms_backend WHERE 1=1 
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="host" prepend="and">
+				<isNotEmpty property="host">
+					host = #host#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotNull property="port" prepend="and">
+				<isNotEmpty property="port">
+					port = #port#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotNull property="domainid" prepend="and">
+				<isNotEmpty property="domainid">
+					domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+	<update id="enabledBD" parameterClass="map">
+		<![CDATA[
+        update otppms_backend set enabled=#enabled# where id=#id#  
+     ]]>
+	</update>
+	
+</sqlMap>

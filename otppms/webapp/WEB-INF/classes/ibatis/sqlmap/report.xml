@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="report_info">
+	<typeAlias alias="reportQueryInfo"
+		type="com.ft.otp.manager.report.form.ReportQueryForm" />
+	<typeAlias alias="reportDataInfo"
+	    type="com.ft.otp.manager.report.entity.ReportInfo"/>
+	<typeAlias alias="tokenInfo"
+	    type="com.ft.otp.manager.token.entity.TokenInfo"/>
+	    
+ 	<parameterMap class="reportQueryInfo" id="parameterMap_report">
+		<parameter property="deptNames" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="domain" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="beginDateLong" javaType="long" jdbcType="INTEGER" />
+		<parameter property="endDateLong" javaType="long" jdbcType="INTEGER" />
+	</parameterMap>
+		 
+	<!-- report query condition main domain and  org -->
+    <sql id="queryReportCondition">
+		<dynamic>
+			<isNotNull property="deptNames" prepend="and">
+				<isNotEmpty property="deptNames">
+					( orgunitid IN ($deptNames$)
+				</isNotEmpty>
+				<isEmpty property="deptNames">
+					( 1=1
+				</isEmpty>
+			</isNotNull>
+			<isNull property="deptNames" prepend="and">
+				( 1=1
+			</isNull>
+			
+			<isNotNull property="domain">
+				
+				<isEqual compareValue="0" property="filterType">
+						or
+				</isEqual>
+				<isEqual compareValue="1" property="filterType">
+						and
+				</isEqual>
+				
+				<isNotEmpty property="domain">
+			   		 ( domainid IN ($domain$)
+			   		 
+			   		<isEqual compareValue="0" property="filterType"
+						prepend="and">
+						orgunitid is null))
+					</isEqual>
+					<isEqual compareValue="1" property="filterType"
+						prepend="and">
+						orgunitid is not null))
+					</isEqual>
+				</isNotEmpty>
+				<isEmpty property="domain">
+					)
+				</isEmpty>
+			</isNotNull>
+			<isNull property="domain">
+				)
+			</isNull>
+		</dynamic>
+	</sql>
+	
+	<!-- report query condition main domain and org -->
+    <sql id="queryReportConditionC">
+		<dynamic>
+			<isNotNull property="deptNames" prepend="and">
+				<isNotEmpty property="deptNames">
+					( fu.orgunitid IN ($deptNames$)
+				</isNotEmpty>
+				<isEmpty property="deptNames">
+					( 1=1
+				</isEmpty>
+			</isNotNull>
+			<isNull property="deptNames" prepend="and">
+				( 1=1
+			</isNull>
+			
+			<isNotNull property="domain">
+			
+				<isEqual compareValue="0" property="filterType">
+						or
+				</isEqual>
+				<isEqual compareValue="1" property="filterType">
+						and
+				</isEqual>
+			
+				<isNotEmpty property="domain">
+			   		( fu.domainid IN ($domain$)
+			   		
+			   		<isEqual compareValue="0" property="filterType"
+						prepend="and">
+						fu.orgunitid is null))
+					</isEqual>
+					<isEqual compareValue="1" property="filterType"
+						prepend="and">
+						fu.orgunitid is not null))
+					</isEqual>
+				</isNotEmpty>
+				<isEmpty property="domain">
+					)
+				</isEmpty>
+			</isNotNull>
+			<isNull property="domain">
+				)
+			</isNull>
+		</dynamic>
+	</sql>
+	
+</sqlMap>

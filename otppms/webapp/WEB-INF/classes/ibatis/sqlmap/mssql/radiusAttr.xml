@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="otp_rad_attr">
+	 
+	<select id="selectRadAttr"  resultMap="resultMap_attr"  parameterClass="radAttrInfo">
+		<![CDATA[
+	    	SELECT attrtype, attrid, attrname, attrvalue, valuetype, profileid, vendorid
+	    	FROM  
+        ]]>
+        <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+				(select top $pageSize$ * from otppms_attrinfo where attrtype not in 
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				 (select top $startRow$ attrtype  from otppms_attrinfo order by attrtype ASC ) order by attrtype ASC ) otppms_attrinfo where 1=1 
+				</isNotEmpty>
+			</isNotNull>
+         </dynamic>
+		<include refid="queryFilter" />
+		<![CDATA[
+			ORDER BY attrtype ASC 
+		]]>
+	</select>
+ 
+</sqlMap>

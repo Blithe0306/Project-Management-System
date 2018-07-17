@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="role_perm">
+	<typeAlias alias="roleperm"
+		type="com.ft.otp.manager.admin.role_perm.entity.RolePerm" />
+
+	<parameterMap class="roleperm" id="parameterMap_rp">
+		<parameter property="roleId" javaType="int" jdbcType="Integer" />
+		<parameter property="permcode" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="adminId" javaType="string"
+			jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<select id="selectRP" parameterMap="parameterMap_rp"
+		resultClass="roleperm">
+		<![CDATA[
+        select roleid,permcode from otppms_role_perm where 1=1
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="roleId" prepend="and">
+				<isNotEmpty property="roleId">
+					roleid =#roleId#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="selectARP" parameterMap="parameterMap_rp"
+		resultClass="roleperm">
+		<![CDATA[
+       	SELECT rp.roleid,rp.permcode,p.srcname,p.keymark,p.permlink 
+       	FROM otppms_role_perm rp left join otppms_perminfo p on rp.permcode=p.permcode WHERE 1=1 
+        ]]>
+		<dynamic prepend="">
+			<isNotNull property="adminId" prepend="and">
+				<isNotEmpty property="adminId">
+					rp.roleid in(select ar.roleid from otppms_admin_role
+					ar where ar.adminid=#adminId#)
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="batchIdsInt" prepend="and">
+				rp.roleid IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<insert id="insertRP" parameterClass="roleperm">
+		<![CDATA[
+    		INSERT INTO otppms_role_perm(roleid,permcode)
+    		                    VALUES(#roleId#,#permcode#)
+    	]]>
+	</insert>
+
+	<delete id="deleteRP" parameterMap="parameterMap_rp">
+		<![CDATA[
+    		DELETE FROM	otppms_role_perm WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIdsInt" prepend="and">
+				roleid IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="perms" prepend="and">
+				permcode IN
+				<iterate property="perms" open="(" close=")"
+					conjunction=",">
+					#perms[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+
+</sqlMap>

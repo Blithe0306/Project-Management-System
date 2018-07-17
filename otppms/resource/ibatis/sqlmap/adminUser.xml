@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_user">
+
+	<typeAlias alias="adminUser"
+		type="com.ft.otp.manager.admin.user.entity.AdminUser" />
+	<parameterMap class="adminUser" id="parameterMap_au">
+		<parameter property="adminid" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="createuser" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="password" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="enabled" javaType="int" jdbcType="Integer" />
+	</parameterMap>
+
+	<select id="selectDesignteAU" resultClass="adminUser"
+		parameterClass="adminUser">
+		<![CDATA[
+		   	SELECT
+		   		adminid,
+	    		realname 
+	            FROM  otppms_admininfo where 1=1
+	        ]]>
+		<dynamic prepend="">
+			<isNotEqual property="loginUser" compareValue="ADMIN">
+				<isNotNull property="adminid" prepend="and">
+					<isNotEmpty property="adminid">
+						adminid not in(#adminid#)
+					</isNotEmpty>
+				</isNotNull>
+			</isNotEqual>
+		</dynamic>
+	</select>
+
+	<select id="findSuperDesignte" resultClass="adminUser"
+		parameterClass="adminUser">
+		<![CDATA[
+	       select createuser as adminid from otppms_admininfo where 1=1 
+        ]]>
+		<dynamic prepend="">
+			<isNotNull property="adminid" prepend="and">
+				<isNotEmpty property="adminid">
+					adminid=(select createuser from otppms_admininfo
+					where adminid=#adminid#)
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<update id="updateDesignteAU" parameterClass="adminUser">
+		<![CDATA[
+	      update  otppms_admininfo set createuser = #createuser# where adminid=#adminid#       
+        ]]>
+	</update>
+
+
+	<select id="countAU" resultClass="int"
+		parameterMap="parameterMap_au">
+		<![CDATA[
+	   	SELECT
+    		count(*)
+            FROM   otppms_admininfo where 1=1
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="adminid" prepend="and">
+				<isNotEmpty property="adminid">
+					adminid like '%$adminid$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="realname" prepend="and">
+				<isNotEmpty property="realname">
+					realname like '%$realname$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createuser" prepend="and">
+				<isNotEmpty property="createuser">
+					createuser like '%$createuser$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="0" property="locked" prepend="and">
+				locked = #locked#
+			</isEqual>
+			<isEqual compareValue="2" property="locked" prepend="and">
+				locked in ('1','2')
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<select id="findAU" parameterClass="adminUser"
+		resultClass="adminUser">
+		<![CDATA[
+	   	SELECT
+    		  adminid,
+    		  realname,
+    		  localauth,
+    		  pwd, 
+    		  pwdsettime, 
+    		  getpwddeath,
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+            FROM otppms_admininfo WHERE 1=1
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="adminid" prepend="and">
+				<isNotEmpty property="adminid">
+					adminid =#adminid#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="pwd" prepend="and">
+				<isNotEmpty property="pwd">
+					pwd =#pwd#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<delete id="deleteAU" parameterMap="parameterMap_au">
+		<![CDATA[
+    		DELETE FROM	otppms_admininfo WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIds" prepend="and">
+				adminid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+
+	<update id="updateAdminUser" parameterClass="adminUser">
+		<![CDATA[
+   		UPDATE otppms_admininfo SET 
+   		realname=#realname#,localauth=#localauth#,
+   		email=#email#, address=#address#, tel=#tel#, cellphone=#cellphone#,
+   		descp=#descp#, enabled=#enabled#
+   		WHERE adminid = #adminid#
+     ]]>
+	</update>
+	
+	<update id="updatePwddeath" parameterClass="adminUser">
+		<![CDATA[
+   		UPDATE otppms_admininfo SET 
+   		getpwddeath=#getpwddeath#
+   		WHERE adminid = #adminid#
+     ]]>
+	</update>
+	
+	<update id="updateAdminPass" parameterClass="adminUser">
+		<![CDATA[
+   		UPDATE otppms_admininfo SET 
+   		realname=#realname#,localauth=#localauth#, pwd=#pwd#,
+   		email=#email#, address=#address#, tel=#tel#, cellphone=#cellphone#,
+   		descp=#descp#, enabled=#enabled#
+   		WHERE adminid = #adminid#
+     ]]>
+	</update>
+
+	<insert id="insertAU" parameterClass="adminUser">
+		<![CDATA[ 
+   			insert into otppms_admininfo(adminid, realname, pwd, pwdsettime, locked, temploginerrcnt, longloginerrcnt, loginlocktime,logintime,logincnt, createuser, enabled,email,address,tel,cellphone,createtime,localauth,descp) 
+   			values(#adminid#, #realname#, #pwd#, #pwdsettime#, #locked#, #temploginerrcnt#, #longloginerrcnt#, #loginlocktime#,#logintime#,#logincnt#, #createuser#, #enabled#,#email#,#address#,#tel#,#cellphone#,#createtime#,#localauth#,#descp#)
+   ]]>
+	</insert>
+
+	<select id="selectChildrenAU" resultClass="adminUser"
+		parameterMap="parameterMap_au">
+		<![CDATA[
+	   	SELECT
+    		  adminid,
+    		  realname,
+    		  pwd, 
+    		  pwdsettime, 
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+            FROM otppms_admininfo WHERE 1=1 
+         ]]>
+		<dynamic prepend="">
+			<isNotEqual compareValue="ADMIN"
+				property="curLoginUserRole">
+				<isNotEmpty property="adminid" prepend="and">
+					createuser = #adminid#
+				</isNotEmpty>
+
+			</isNotEqual>
+			<isEqual compareValue="ADMIN" property="curLoginUserRole">
+				<isNotEmpty property="adminid" prepend="and">
+					createuser = #adminid# and adminid not in('admin')
+				</isNotEmpty>
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<update id="enabledAU" parameterClass="map">
+		<![CDATA[
+        update otppms_admininfo set  enabled=#enabled# where adminid=#adminid#  
+     ]]>
+	</update>
+
+	<update id="lockedAU" parameterClass="adminUser">
+		<![CDATA[
+        update otppms_admininfo 
+        set locked=#locked#, temploginerrcnt=#temploginerrcnt#, longloginerrcnt=#longloginerrcnt#,
+        loginlocktime=#loginlocktime#  
+        where adminid=#adminid# 
+     ]]>
+	</update>
+
+	<update id="pwdUpdateAU" parameterClass="adminUser">
+		<![CDATA[
+        update otppms_admininfo set pwd=#pwd#, pwdsettime = #pwdsettime# where adminid=#adminid#  
+     ]]>
+	</update>
+	
+	<update id="updateAU" parameterClass="adminUser">
+		<![CDATA[
+        update otppms_admininfo set logincnt=#logincnt#,logintime=#logintime# where adminid=#adminid#  
+     ]]>
+	</update>
+	
+	<!-- query admin list condition -->
+	<sql id="queryAdmCondition">
+		<dynamic>
+			<isNotNull property="adminid" prepend="and">
+				<isNotEmpty property="adminid">
+					adminid like '%$adminid$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="realname" prepend="and">
+				<isNotEmpty property="realname">
+					realname like '%$realname$%'
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+			and  adminid !=(select adminid from otppms_admin_role ft_ar , otppms_roleinfo ft_r where ft_ar.roleid=ft_r.roleid and ft_r.rolemark='ADMIN') 
+		]]>
+	</sql>	
+	
+	<sql id="queryAdUserCondition">
+		<dynamic prepend="">
+			<isNotNull property="adminid" prepend="and">
+				<isNotEmpty property="adminid">
+					adminid like '%$adminid$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="realname" prepend="and">
+				<isNotEmpty property="realname">
+					realname like '%$realname$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createuser" prepend="and">
+				<isNotEmpty property="createuser">
+					createuser like '%$createuser$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="0" property="locked" prepend="and">
+				locked = #locked#
+			</isEqual>
+			<isEqual compareValue="2" property="locked" prepend="and">
+				locked in ('1','2')
+			</isEqual>
+			<!-- roleName -->
+			<isNotNull property="rolenameStr">
+				<isNotEmpty property="rolenameStr" prepend="and">
+					exists (select otppms_admin_role.adminid from
+					otppms_admin_role left join otppms_roleinfo on otppms_admin_role.roleid = otppms_roleinfo.roleid where otppms_admin_role.adminid =
+					otppms_admininfo.adminid and otppms_roleinfo.rolename like '%$rolenameStr$%')
+				</isNotEmpty>
+			</isNotNull>
+			<!-- manager domain or org -->
+			<isNotEqual property="domainid" compareValue="0" prepend="and">
+				exists (select otppms_admin_orgunit.adminid from
+				otppms_admin_orgunit where otppms_admin_orgunit.adminid =
+				otppms_admininfo.adminid
+				
+				<isEqual property="orgunitid" compareValue="0" prepend="and">
+					otppms_admin_orgunit.domainid = #domainid# and otppms_admin_orgunit.orgunitid is null
+				</isEqual>
+				<isNotEqual property="orgunitid" compareValue="0" prepend="and">
+					otppms_admin_orgunit.domainid = #domainid# and otppms_admin_orgunit.orgunitid = #orgunitid#
+				</isNotEqual>
+				)
+			</isNotEqual>			
+		</dynamic>
+	</sql>	
+
+	<select id="selectAIEmail" resultClass="adminUser"
+		parameterMap="parameterMap_au">	
+		<![CDATA[
+			SELECT
+    		  adminid,
+    		  realname,
+    		  pwd, 
+    		  pwdsettime, 
+    		  locked, 
+    		  temploginerrcnt, 
+    		  longloginerrcnt, 
+    		  loginlocktime,
+    		  logintime,
+    		  logincnt, 
+    		  createuser, 
+    		  enabled,
+    		  email,
+    		  address,
+    		  tel,
+    		  cellphone,
+    		  createtime,
+    		  descp
+            FROM otppms_admininfo WHERE 1=1 
+         ]]>
+	   <dynamic prepend="">
+			<isNotNull property="batchIds" prepend="and">
+				otppms_admininfo.adminid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+	    </dynamic>
+	</select>
+</sqlMap>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user_info">
+	<select id="selectUI" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+            SELECT 
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+			u.domainid,
+			coalesce(u.orgunitid,0) as orgunitid,
+			coalesce(u.radprofileid,0) as radprofileid,
+			u.createtime 
+			from otppms_userinfo u 
+         ]]>
+		<include refid="queryUsersCondition" />
+		<![CDATA[       		
+        	order by u.userid asc
+        ]]>
+        <dynamic prepend="">
+			<isNotNull property="upPageTag">
+				<isNotEmpty property="upPageTag">
+					<isEqual compareValue="1" property="upPageTag"><!-- 1 page, 0 not page -->
+						LIMIT #pageSize#
+            			OFFSET #startRow#
+            		</isEqual>
+				</isNotEmpty>
+			</isNotNull>			
+		</dynamic>
+	</select>
+	
+	<select id="selectBind" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+            SELECT 
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+
+    		CASE (select count(bindid) from otppms_user_token where otppms_user_token.userid =u.userid  and otppms_user_token.domainid=u.domainid)
+    		WHEN 0  THEN 1
+    				ELSE 2 
+    		END   
+    		AS usbindTag ,
+			
+			u.domainid,
+			coalesce(u.orgunitid,0) as orgunitid,
+			coalesce(u.radprofileid,0) as radprofileid,
+			u.createtime 
+			from otppms_userinfo u 
+         ]]>
+		<include refid="queryUsersConditionBind" />
+		<![CDATA[       		
+        	order by u.userid asc
+        ]]>
+        <dynamic prepend="">
+			<isNotNull property="upPageTag">
+				<isNotEmpty property="upPageTag">
+					<isEqual compareValue="1" property="upPageTag"><!-- 1 page, 0 not page -->
+						LIMIT #pageSize#
+            			OFFSET #startRow#
+            		</isEqual>
+				</isNotEmpty>
+			</isNotNull>			
+		</dynamic>
+	</select>
+	
+	<select id="selectUC" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+		    SELECT
+		    distinct 
+    		u.userid,
+    		u.realname,
+			u.localauth,
+			u.pwd,
+			u.pwddeath,
+			u.getpwddeath,			
+			u.paperstype,
+			u.papersnumber,
+			u.email,
+			u.address,
+			u.tel,
+			u.cellphone,
+			u.locked ,
+			u.temploginerrcnt,
+			u.longloginerrcnt,
+			u.loginlocktime,
+			u.logincnt,
+			u.lastlogintime,
+			u.backendauth,
+			u.enabled,
+			
+    		CASE (select count(bindid) from otppms_user_token where otppms_user_token.userid =u.userid  and otppms_user_token.domainid=u.domainid)
+    		WHEN 0  THEN 1
+    				ELSE 2 
+    		END   
+    		AS usbindTag ,
+			
+			u.domainid,
+			coalesce(u.orgunitid,0) as orgunitid,
+			coalesce(u.radprofileid,0) as radprofileid,
+			u.createtime 
+			from otppms_userinfo u 
+         ]]>
+		<include refid="queryUsersConditionUC" />
+		<![CDATA[       		
+        	order by u.userid asc
+            
+        ]]>
+        <dynamic prepend="">
+			<isNotNull property="upPageTag">
+				<isNotEmpty property="upPageTag">
+					<isEqual compareValue="1" property="upPageTag"><!-- 1 page, 0 not page -->
+						LIMIT #pageSize#
+            			OFFSET #startRow#
+            		</isEqual>
+				</isNotEmpty>
+			</isNotNull>			
+		</dynamic>
+	</select>
+	
+	
+	<select id="findUI" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+		     SELECT
+    		userid,
+    		realname,
+			localauth,
+			pwd,
+			pwddeath,
+			getpwddeath,			
+			paperstype,
+			papersnumber,
+			email,
+			address,
+			tel,
+			cellphone,
+			locked ,
+			temploginerrcnt,
+			longloginerrcnt,
+			loginlocktime,
+			logincnt,
+			lastlogintime,
+			backendauth,
+			enabled,
+			domainid,
+			coalesce(orgunitid,0) as orgunitid,
+			coalesce(radprofileid,0) as radprofileid,
+			createtime 
+			from otppms_userinfo WHERE 1=1 
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="userId" prepend="and">
+				<isNotEmpty property="userId">
+					userid = #userId#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="domainId" prepend="and">
+				<isNotEmpty property="domainId">
+					<isNotEqual compareValue="0" property="domainId" >
+					 	domainid = #domainId#
+					</isNotEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+   <!-- query user email -->
+   <select id="selectUIEmail" resultClass="userInfo"
+		parameterMap="parameterMap_ui">
+		<![CDATA[
+		SELECT
+    		userid,
+    		realname,
+			localauth,
+			pwd,
+			pwddeath,
+			getpwddeath,			
+			paperstype,
+			papersnumber,
+			email,
+			address,
+			tel,
+			cellphone,
+			locked ,
+			temploginerrcnt,
+			longloginerrcnt,
+			loginlocktime,
+			logincnt,
+			lastlogintime,
+			backendauth,
+			enabled,
+			domainid,
+			coalesce(orgunitid,0) as orgunitid,
+			coalesce(radprofileid,0) as radprofileid,
+			createtime 
+			from otppms_userinfo WHERE 1=1  
+         ]]>
+	   <dynamic prepend="">
+			<isNotNull property="batchIds" prepend="and">
+				otppms_userinfo.userid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+	    </dynamic>
+	</select>
+	
+	<!-- user token orginfo export -->
+	<select id="queryUI_TI_UG" resultMap="resultMap_ui">
+		<![CDATA[
+	    	select  otppms_userinfo.userid,
+	    			otppms_userinfo.realname,
+	    			otppms_userinfo.papersnumber,
+	    			otppms_userinfo.pwd,
+	    			otppms_userinfo.cellphone,
+	    			otppms_userinfo.email,
+	    			otppms_userinfo.address,
+	    			otppms_userinfo.tel,
+	    			
+					otppms_userinfo.paperstype,
+	    			otppms_user_token.token,
+	    			ftoken.physicaltype,
+	    			ftoken.producttype,
+	        		ftoken.expiretime,
+	        		ftoken.otplen,
+	        		ftoken.intervaltime,
+	        		
+	        		otppms_domaininfo.domainid,
+	    			otppms_domaininfo.domainname,
+	    			coalesce(otppms_orgunitinfo.orgunitid,0) as orgunitid,
+	    			otppms_orgunitinfo.orgunitnumber,
+					otppms_orgunitinfo.orgunitname
+	    		from otppms_userinfo left join otppms_user_token on otppms_userinfo.userid = otppms_user_token.userid and otppms_user_token.domainid is not null
+	    			
+	    ]]>
+		<![CDATA[
+			left join (select tn.token,tn.physicaltype,tn.producttype,tn.expiretime,tp.otplen,tp.intervaltime from otppms_tokeninfo tn left join otppms_tokenspec tp on tn.specid=tp.specid)  ftoken on ftoken.token = otppms_user_token.token 
+			left join otppms_domaininfo on otppms_userinfo.domainid = otppms_domaininfo.domainid 
+			left join otppms_orgunitinfo on otppms_userinfo.orgunitid = otppms_orgunitinfo.orgunitid  
+		 ]]>
+		<isEqual compareValue="1" property="bind" prepend="and">
+			<![CDATA[
+				otppms_user_token.token is null
+			]]>
+		</isEqual>
+		
+		<![CDATA[
+		where 1=1 
+		]]>
+		
+		<dynamic prepend="">
+			<isEqual compareValue="2" property="bind" prepend="and">
+				otppms_userinfo.userid in(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				otppms_userinfo.userid and otppms_userinfo.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="bind" prepend="and">
+				otppms_userinfo.userid not in(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				otppms_userinfo.userid and otppms_userinfo.domainid = otppms_user_token.domainid)
+			</isEqual> 
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+					otppms_userinfo.domainid = #domainId#
+			</isNotEqual>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					 (otppms_userinfo.orgunitid is null or otppms_userinfo.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+					  )
+				</isNotNull>
+			</isNotEqual>
+			
+			<isEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					otppms_userinfo.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+				</isNotNull>
+			</isEqual>
+		</dynamic>
+		<!-- by current adminid query user in manager org -->
+		<dynamic prepend="">
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((otppms_userinfo.domainid in (select distinct fao.domainid from otppms_admin_orgunit fao where fao.adminid=#currentAdminId# and   fao.orgunitid is null) and (otppms_userinfo.orgunitid is null))
+				    or	otppms_userinfo.orgunitid in (select distinct fao.orgunitid from otppms_admin_orgunit fao where fao.adminid=#currentAdminId# and otppms_userinfo.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		
+		
+		<![CDATA[
+			order by otppms_userinfo.userid asc
+		]]>
+	</select>
+	
+	<!-- user token org info export , not include token -->
+	<select id="queryUI_UG" resultMap="resultMap_ui">
+		<![CDATA[
+	    	select  distinct
+	    			otppms_userinfo.userid,
+	    			otppms_userinfo.realname,
+	    			otppms_userinfo.papersnumber,
+	    			otppms_userinfo.pwd,
+	    			otppms_userinfo.cellphone,
+	    			otppms_userinfo.email,
+	    			otppms_userinfo.address,
+	    			otppms_userinfo.tel,
+	    			
+					otppms_userinfo.paperstype,
+	    			'0' as token,
+                	'0' as physicaltype,
+                    '0' as producttype,
+                    '0' as expiretime,
+                    '0' as otplen,
+                    '0' as intervaltime,
+	        		
+	        		otppms_domaininfo.domainid,
+	    			otppms_domaininfo.domainname,
+	    			coalesce(otppms_orgunitinfo.orgunitid,0) as orgunitid,
+	    			otppms_orgunitinfo.orgunitnumber,
+					otppms_orgunitinfo.orgunitname
+	    		from otppms_userinfo left join otppms_user_token on otppms_userinfo.userid = otppms_user_token.userid	
+	    			
+	    ]]>
+		<![CDATA[
+			left join (select tn.token,tp.otplen,tp.intervaltime from otppms_tokeninfo tn left join otppms_tokenspec tp on tn.specid=tp.specid)  ftoken on ftoken.token = otppms_user_token.token 
+			left join otppms_domaininfo on otppms_userinfo.domainid = otppms_domaininfo.domainid 
+			left join otppms_orgunitinfo on otppms_userinfo.orgunitid = otppms_orgunitinfo.orgunitid  
+		 ]]>
+		<isEqual compareValue="1" property="bind" prepend="and">
+			<![CDATA[
+				otppms_user_token.token is null
+			]]>
+		</isEqual>
+		
+		<![CDATA[
+		where 1=1 
+		]]>
+		
+		<dynamic prepend="">
+			<isEqual compareValue="2" property="bind" prepend="and">
+				otppms_userinfo.userid in(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				otppms_userinfo.userid and otppms_userinfo.domainid = otppms_user_token.domainid)
+			</isEqual>
+			<isEqual compareValue="1" property="bind" prepend="and">
+				otppms_userinfo.userid not in(select otppms_user_token.userid from
+				otppms_user_token where otppms_user_token.userid =
+				otppms_userinfo.userid and otppms_userinfo.domainid = otppms_user_token.domainid)
+			</isEqual> 
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="0" property="domainId" prepend="and">
+					otppms_userinfo.domainid = #domainId#
+			</isNotEqual>
+		</dynamic>
+		<dynamic prepend="">
+			<isNotEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					 (otppms_userinfo.orgunitid is null or otppms_userinfo.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+					  )
+				</isNotNull>
+			</isNotEqual>
+			
+			<isEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					otppms_userinfo.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+				</isNotNull>
+			</isEqual>
+		</dynamic>
+		<!-- by current adminid query user in manager org -->
+		<dynamic prepend="">
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((otppms_userinfo.domainid in (select distinct fao.domainid from otppms_admin_orgunit fao where fao.adminid=#currentAdminId# and   fao.orgunitid is null) and (otppms_userinfo.orgunitid is null))
+				    or	otppms_userinfo.orgunitid in (select distinct fao.orgunitid from otppms_admin_orgunit fao where fao.adminid=#currentAdminId# and otppms_userinfo.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+		
+		
+		<![CDATA[
+			order by otppms_userinfo.userid asc
+		]]>
+	</select>
+</sqlMap>

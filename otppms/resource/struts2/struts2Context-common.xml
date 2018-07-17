@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans default-lazy-init="true">
+	<!-- admin User -->
+	<bean name="admUserAction"
+		class="com.ft.otp.manager.admin.user.action.AdmUserAction"
+		scope="prototype">
+		<property name="adminUserServ">
+			<ref bean="adminUserServ" />
+		</property>
+		<property name="projectServ">
+			<ref bean="projectServ" />
+		</property>
+	</bean>
+
+	<!-- Admin Bind -->
+	<bean name="adminBindAction"
+		class="com.ft.otp.manager.admin.user.action.AdminBindAction"
+		scope="prototype">
+	</bean>
+
+	<!-- admin Role -->
+	<bean name="roleInfoAction"
+		class="com.ft.otp.manager.admin.role.action.RoleInfoAction"
+		scope="prototype">
+		<property name="roleInfoServ">
+			<ref bean="roleInfoServ" />
+		</property>
+	</bean>
+
+	<!-- User Info -->
+	<bean name="uInfoAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserInfoAction"
+		scope="prototype">
+		<property name="userInfoServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<!-- User Bind -->
+	<bean name="uBindAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserBindAction"
+		scope="prototype">
+		<property name="userBindServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<bean name="uChangeAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserChangeAction"
+		scope="prototype">
+		<property name="userChangeServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<!-- User Import -->
+	<bean name="uImportAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserImportAction"
+		scope="prototype">
+		<property name="userImportServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<!-- User Export -->
+	<bean name="uExportAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserExportAction"
+		scope="prototype">
+		<property name="userExportServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<!-- User UnBind -->
+	<bean name="uUnBindAction"
+		class="com.ft.otp.manager.user.userinfo.action.UserUnBindAction"
+		scope="prototype">
+		<property name="userUnBindServ">
+			<ref bean="userInfoServ" />
+		</property>
+	</bean>
+
+	<!-- auth Server -->
+	<bean name="serverAction"
+		class="com.ft.otp.manager.authmgr.server.action.ServerAction"
+		scope="prototype">
+		<property name="serverServ">
+			<ref bean="serverServ" />
+		</property>
+	</bean>
+
+	<!-- agentConf -->
+	<bean name="agentConfAction"
+		class="com.ft.otp.manager.authmgr.agentconf.action.AgentConfAction"
+		scope="prototype">
+		<property name="agentConfServ">
+			<ref bean="agentConfServ" />
+		</property>
+	</bean>
+
+	<!-- auth Agent -->
+	<bean name="agentAction"
+		class="com.ft.otp.manager.authmgr.agent.action.AgentAction"
+		scope="prototype">
+		<property name="agentServ">
+			<ref bean="agentServ" />
+		</property>
+	</bean>
+
+	<!-- auth Backend -->
+	<bean name="backendAction"
+		class="com.ft.otp.manager.authmgr.backend.action.BackendAction"
+		scope="prototype">
+		<property name="backendServ">
+			<ref bean="backendServ" />
+		</property>
+	</bean>
+
+	<!-- token  -->
+	<bean name="tokenAction"
+		class="com.ft.otp.manager.token.action.TokenAction"
+		scope="prototype">
+		<property name="tokenServ">
+			<ref bean="tokenServ" />
+		</property>
+	</bean>
+
+	<!-- token auth  -->
+	<bean name="authAction"
+		class="com.ft.otp.manager.token.action.AuthAction"
+		scope="prototype">
+	</bean>
+
+	<!-- import token  -->
+	<bean name="importTokenAction"
+		class="com.ft.otp.manager.token.tokenimport.action.TokenImportAction"
+		scope="prototype">
+		<property name="importTokenServ">
+			<ref bean="tokenServ" />
+		</property>
+	</bean>
+
+	<!-- admin log  -->
+	<bean name="adminLogAction"
+		class="com.ft.otp.manager.logs.adminlog.action.AdminLogAction"
+		scope="prototype">
+		<property name="adminLogServ">
+			<ref bean="adminLogServ" />
+		</property>
+	</bean>
+
+	<!-- user log  -->
+	<bean name="userLogAction"
+		class="com.ft.otp.manager.logs.userlog.action.UserLogAction"
+		scope="prototype">
+		<property name="userLogServ">
+			<ref bean="userLogServ" />
+		</property>
+	</bean>
+
+	<!-- token distmanager -->
+	<bean name="distmanagerAction"
+		class="com.ft.otp.manager.token.distmanager.action.DistManagerAction"
+		scope="prototype">
+		<property name="distManagerServ">
+			<ref bean="distManagerServ" />
+		</property>
+	</bean>
+	
+	<!-- login -->
+	<bean name="loginAction"
+		class="com.ft.otp.manager.login.action.LoginAction"
+		scope="prototype">
+	</bean>
+
+	<!-- otpServerAction -->
+	<bean name="otpServerAction"
+		class="com.ft.otp.manager.confinfo.config.action.OTPServerAction"
+		scope="prototype">
+	</bean>
+
+	<!-- centerAction -->
+	<bean name="centerAction"
+		class="com.ft.otp.manager.confinfo.config.action.CenterAction"
+		scope="prototype">
+
+	</bean>
+
+	<!-- emailInfoAction -->
+	<bean name="emailAction"
+		class="com.ft.otp.manager.confinfo.email.action.EmailInfoAction"
+		scope="prototype">
+		<property name="emailServ">
+			<ref bean="emailServ" />
+		</property>
+
+	</bean>
+
+	<!-- smsInfoAction -->
+	<bean name="smsAction"
+		class="com.ft.otp.manager.confinfo.sms.action.SmsInfoAction"
+		scope="prototype">
+		<property name="smsInfoServ">
+			<ref bean="smsInfoServ" />
+		</property>
+
+	</bean>
+
+	<!-- DBConfAction -->
+	<bean name="dbConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.DBConfAction"
+		scope="prototype">
+
+	</bean>
+
+	<!-- PortalConfAction -->
+	<bean name="portalAction"
+		class="com.ft.otp.manager.confinfo.config.action.PortalConfAction"
+		scope="prototype">
+
+	</bean>
+
+	<!-- accessConAction -->
+	<bean name="accessConAction"
+		class="com.ft.otp.manager.confinfo.access.action.AccessControlAction"
+		scope="prototype">
+		<property name="accessConServ">
+			<ref bean="accessConServ" />
+		</property>
+	</bean>
+
+	<!-- radius -->
+	<bean name="radProfileAction"
+		class="com.ft.otp.manager.confinfo.radius.action.RadProfileAction"
+		scope="prototype">
+		<property name="radProfileServ">
+			<ref bean="radProfileServ" />
+		</property>
+	</bean>
+
+	<bean name="radAttrAction"
+		class="com.ft.otp.manager.confinfo.radius.action.RadAttrAction"
+		scope="prototype">
+		<property name="radAttrServ">
+			<ref bean="radAttrServ" />
+		</property>
+	</bean>
+
+	<!-- DomainInfoAction -->
+	<bean name="domainInfoAction"
+		class="com.ft.otp.manager.orgunit.domain.action.DomainInfoAction"
+		scope="prototype">
+		<property name="domainInfoServ">
+			<ref bean="domainInfoServ" />
+		</property>
+		<property name="orgunitInfoServ">
+			<ref bean="orgunitInfoServ" />
+		</property>
+		<property name="adminAndOrgunitServ">
+			<ref bean="adminAndOrgunitServ" />
+		</property>
+	</bean>
+
+	<!-- OrgunitInfoAction -->
+	<bean name="orgunitInfoAction"
+		class="com.ft.otp.manager.orgunit.orgunit.action.OrgunitInfoAction"
+		scope="prototype">
+		<property name="orgunitInfoServ">
+			<ref bean="orgunitInfoServ" />
+		</property>
+		<property name="domainInfoServ">
+			<ref bean="domainInfoServ" />
+		</property>
+		<property name="adminAndOrgunitServ">
+			<ref bean="adminAndOrgunitServ" />
+		</property>
+		<property name="userInfoServ">
+			<ref bean="userInfoServ" />
+		</property>
+		<property name="tokenServ">
+			<ref bean="tokenServ" />
+		</property>
+	</bean>
+
+	<!-- ReportAction -->
+	<bean name="reportAction"
+		class="com.ft.otp.manager.report.action.ReportAction"
+		scope="prototype">
+		<property name="operationReportServ">
+			<ref bean="operationReportServ" />
+		</property>
+		<property name="userReportServ">
+			<ref bean="userReportServ" />
+		</property>
+		<property name="tokenReportServ">
+			<ref bean="tokenReportServ" />
+		</property>
+	</bean>
+
+	<!-- monitorAction -->
+	<bean name="monitorAction"
+		class="com.ft.otp.manager.monitor.action.MonitorAction"
+		scope="prototype">
+		<property name="monitorServ">
+			<ref bean="monitorServ" />
+		</property>
+	</bean>
+
+	<!-- meunTree -->
+	<bean name="treeAction" class="com.ft.otp.manager.main.TreeAction"
+		scope="prototype">
+	</bean>
+
+	<!-- installAction -->
+	<bean name="installAction"
+		class="com.ft.otp.manager.install.action.InstallAction"
+		scope="prototype">
+	</bean>
+
+	<!-- proNoticeAction -->
+	<bean name="proNoticeAction"
+		class="com.ft.otp.manager.confinfo.portal.action.PorNoticeAction"
+		scope="prototype">
+		<property name="noticeServ">
+			<ref bean="noticeServ" />
+		</property>
+	</bean>
+
+	<!-- licInfoAction -->
+	<bean name="licInfoAction"
+		class="com.ft.otp.manager.lic.action.LicInfoAction"
+		scope="prototype">
+		<property name="licInfoServ">
+			<ref bean="licInfoServ" />
+		</property>
+	</bean>
+
+	<!-- databak -->
+	<bean name="databakAction"
+		class="com.ft.otp.manager.data.action.DataBakAction"
+		scope="prototype">
+	</bean>
+
+	<!-- commConfAction -->
+	<bean name="commConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.CommConfAction"
+		scope="prototype">
+	</bean>
+	<!-- authConfAction -->
+	<bean name="authConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.AuthConfAction"
+		scope="prototype">
+	</bean>
+	<!-- userConfAction -->
+	<bean name="userConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.UserConfAction"
+		scope="prototype">
+	</bean>
+	<!-- tokenConfAction -->
+	<bean name="tokenConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.TokenConfAction"
+		scope="prototype">
+	</bean>
+
+	<!-- monitorConfAction -->
+	<bean name="monitorConfAction"
+		class="com.ft.otp.manager.confinfo.config.action.MonitorConfAction"
+		scope="prototype">
+	</bean>
+	
+		<!-- monitorConfAction -->
+	<bean name="monitorConfigAction"
+		class="com.ft.otp.manager.confinfo.config.action.ConfMonitorConfigAction"
+		scope="prototype">
+	</bean>
+	
+	<!-- heartBeatAction -->
+	<bean name="heartBeatAction"
+		class="com.ft.otp.manager.heartbeat.action.HeartBeatAction"
+		scope="prototype">
+	</bean>
+	
+	<!-- monitorRecordAction -->
+	<bean name="monitorRecordAction" 
+		class="com.ft.otp.manager.heartbeat.monitorrecord.action.MonitorRecordAction"
+		scope="prototype">
+	</bean>
+	
+	<!-- pms Project -->
+	<bean name="projectAction"
+		class="com.ft.otp.manager.project.action.ProjectAction"
+		scope="prototype">
+		<property name="projectServ">
+			<ref bean="projectServ" />
+		</property>
+		<property name="custInfoServ">
+			<ref bean="custInfoServ" />
+		</property>
+		<property name="customerUserServ">
+			<ref bean="customerUserServ" />
+		</property>
+		<property name="projectResultServ">
+			<ref bean="projectResultServ" />
+		</property>
+	</bean>
+	
+	<!-- customerAction -->
+	<bean name="customerAction" 
+		class="com.ft.otp.manager.customer.action.CustomerInfoAction"
+		scope="prototype">
+		<property name="custInfoServ">
+			<ref bean="custInfoServ" />
+		</property>
+	</bean>
+	
+	<!-- pms prjinfoAction -->
+	<bean name="prjinfoAction" 
+		class="com.ft.otp.manager.prjinfo.action.PrjinfoAction"
+		scope="prototype">
+		<property name="prjinfoServ">
+			<ref bean="prjinfoServ" />
+		</property>
+		<property name="projectServ">
+			<ref bean="projectServ" />
+		</property>
+		<property name="customerUserServ">
+			<ref bean="customerUserServ" />
+		</property>
+	</bean>
+	
+	<!-- customerAction -->
+	<bean name="customerUserAction" 
+		class="com.ft.otp.manager.notice.customer.action.CustomerUserAction"
+		scope="prototype">
+		<property name="customerUserServ">
+			<ref bean="customerUserServ" />
+		</property>
+		<property name="projectServ">
+			<ref bean="projectServ" />
+		</property>
+	</bean>
+	
+	<bean name="resordsAction" 
+		class="com.ft.otp.manager.resords.action.ResordsAction"
+		scope="prototype">
+		<property name="resordsServ">
+			<ref bean="resordsServ" />
+		</property>
+	</bean>
+	
+</beans>

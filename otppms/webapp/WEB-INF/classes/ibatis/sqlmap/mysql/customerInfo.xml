@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="customer_info">
+	<select id="selectUI" resultClass="custInfo" parameterClass="custInfo" >
+		<![CDATA[
+		    SELECT * from otppms_customer where 1=1
+         ]]>
+         <dynamic prepend="">
+	         <isGreaterThan property="id" compareValue="-1"  prepend="and">
+	         	id = #id#
+	         </isGreaterThan>
+			<isNotNull property="custid" prepend="and">
+				<isNotEmpty property="custid">
+					custid like '%$custid$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="custname" prepend="and">
+				<isNotEmpty property="custname">
+					custname like '%$custname$%'
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+		    order by createtime desc LIMIT #pageSize# OFFSET #startRow#
+         ]]>
+	</select>
+	
+	<select id="findUI" resultClass="custInfo" parameterMap="parameterMap_ui">
+		<![CDATA[
+		    SELECT * from otppms_customer WHERE 1=1 
+         ]]>
+		<dynamic prepend="">
+		 	<isGreaterThan property="id" compareValue="-1"  prepend="and">
+	         	id = #id#
+	        </isGreaterThan>
+			<isNotNull property="custid" prepend="and">
+				<isNotEmpty property="custid">
+					custid = #custid#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="custname" prepend="and">
+				<isNotEmpty property="custname">
+					custname = #custname#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+</sqlMap>

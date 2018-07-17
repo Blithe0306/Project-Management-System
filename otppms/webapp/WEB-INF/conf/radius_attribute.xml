@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<radius-attribute>
+	<attribute>
+		<attr_id>1</attr_id>
+		<attr_name>User-Name</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>2</attr_id>
+		<attr_name>User-Password</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>3</attr_id>
+		<attr_name>CHAP-Password</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>4</attr_id>
+		<attr_name>NAS-IP-Address</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>5</attr_id>
+		<attr_name>NAS-Port</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>6</attr_id>
+		<attr_name>Service-Type</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">Login-User</option>
+			<option value="2">Framed-User</option>
+			<option value="3">Callback-Login-User</option>
+			<option value="4">Callback-Framed-User</option>
+			<option value="5">Outbound-User</option>
+			<option value="6">Administrative-User</option>
+			<option value="7">NAS-Prompt-User</option>
+			<option value="8">Authenticate-Only</option>
+			<option value="9">Callback-NAS-Prompt</option>
+			<option value="10">Call-Check</option>
+			<option value="11">Callback-Administrative</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>7</attr_id>
+		<attr_name>Framed-Protocol</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">PPP</option>
+			<option value="2">SLIP</option>
+			<option value="3">ARAP</option>
+			<option value="4">Gandalf-SLML</option>
+			<option value="5">Xylogics-IPX-SLIP</option>
+			<option value="6">X.75-Synchronous</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>8</attr_id>
+		<attr_name>Framed-IP-Address</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>9</attr_id>
+		<attr_name>Framed-IP-Netmask</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>10</attr_id>
+		<attr_name>Framed-Routing</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="0">None</option>
+			<option value="1">Broadcast</option>
+			<option value="2">Listen</option>
+			<option value="3">Broadcast-Listen</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>11</attr_id>
+		<attr_name>Filter-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>12</attr_id>
+		<attr_name>Framed-MTU</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>13</attr_id>
+		<attr_name>Framed-Compression</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="0">None</option>
+			<option value="1">Van-Jacobson-TCP-IP</option>
+			<option value="2">IPX-Header-Compression</option>
+			<option value="3">Stac-LZS</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>14</attr_id>
+		<attr_name>Login-IP-Host</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>15</attr_id>
+		<attr_name>Login-Service</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="0">Telnet</option>
+			<option value="1">Rlogin</option>
+			<option value="2">TCP-Clear</option>
+			<option value="3">PortMaster</option>
+			<option value="4">LAT</option>
+			<option value="5">X25-PAD</option>
+			<option value="6">X25-T3POS</option>
+			<option value="8">TCP-Clear-Quiet</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>16</attr_id>
+		<attr_name>Login-TCP-Port</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="23">Telnet</option>
+			<option value="513">Rlogin</option>
+			<option value="514">Rsh</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>18</attr_id>
+		<attr_name>Reply-Message</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>19</attr_id>
+		<attr_name>Callback-Number</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>20</attr_id>
+		<attr_name>Callback-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>22</attr_id>
+		<attr_name>Framed-Route</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>23</attr_id>
+		<attr_name>Framed-IPX-Network</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>24</attr_id>
+		<attr_name>State</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>25</attr_id>
+		<attr_name>Class</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>26</attr_id>
+		<attr_name>Vendor-Specific</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>27</attr_id>
+		<attr_name>Session-Timeout</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>28</attr_id>
+		<attr_name>Idle-Timeout</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>29</attr_id>
+		<attr_name>Termination-Action</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="0">Default</option>
+			<option value="1">RADIUS-Request</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>30</attr_id>
+		<attr_name>Called-Station-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>31</attr_id>
+		<attr_name>Calling-Station-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>32</attr_id>
+		<attr_name>NAS-Identifier</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>33</attr_id>
+		<attr_name>Proxy-State</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>34</attr_id>
+		<attr_name>Login-LAT-Service</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>35</attr_id>
+		<attr_name>Login-LAT-Node</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>36</attr_id>
+		<attr_name>Login-LAT-Group</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>37</attr_id>
+		<attr_name>Framed-AppleTalk-Link</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>38</attr_id>
+		<attr_name>Framed-AppleTalk-Network</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>39</attr_id>
+		<attr_name>Framed-AppleTalk-Zone</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>40</attr_id>
+		<attr_name>Acct-Status-Type</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">开始计费报文</option>
+			<option value="2">停止计费报文</option>
+			<option value="3">实时计费报文</option>
+			<option value="9">Tunnel-Start</option>
+			<option value="10">Tunnel-Stop</option>
+			<option value="11">Tunnel-Reject</option>
+			<option value="12">Tunnel-Link-Start</option>
+			<option value="13">Tunnel-Link-Stop</option>
+			<option value="14">Tunnel-Link-Reject</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>41</attr_id>
+		<attr_name>Acct-Delay-Time</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>42</attr_id>
+		<attr_name>Acct-Input-Octets</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>43</attr_id>
+		<attr_name>Acct-Output-Octets</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>44</attr_id>
+		<attr_name>Acct-Session-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>45</attr_id>
+		<attr_name>Acct-Authentic</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">RADIUS 认证</option>
+			<option value="2">本地认证</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>46</attr_id>
+		<attr_name>Acct-Session-Time</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>47</attr_id>
+		<attr_name>Acct-Input-Packets</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>48</attr_id>
+		<attr_name>Acct-Output-Packets</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>49</attr_id>
+		<attr_name>Acct-Terminate-Cause</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">User-Request</option>
+			<option value="2">Lost Carrier</option>
+			<option value="3">Lost Service</option>
+			<option value="4">Idle Timeout</option>
+			<option value="5">Session Timeout</option>
+			<option value="6">Admin Reset</option>
+			<option value="7">Admin Reboot</option>
+			<option value="8">Port Error</option>
+			<option value="9">NAS Error</option>
+			<option value="10">NAS Request</option>
+			<option value="11">NAS Reboot</option>
+			<option value="12">Port Unneeded</option>
+			<option value="14">Port Suspended</option>
+			<option value="15">Service Unavailable</option>
+			<option value="17">User Error</option>
+			<option value="18">Host Request</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>50</attr_id>
+		<attr_name>Acct-Multi-Session-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>51</attr_id>
+		<attr_name>Acct-Link-Count</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>52</attr_id>
+		<attr_name>Acct-Input-Gigawords</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>53</attr_id>
+		<attr_name>Acct-Output-Gigawords</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>55</attr_id>
+		<attr_name>Event-Timestamp</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>60</attr_id>
+		<attr_name>CHAP-Challenge</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>61</attr_id>
+		<attr_name>NAS-Port-Type</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="0">Async</option>
+			<option value="1">Sync</option>
+			<option value="2">ISDN</option>
+			<option value="3">ISDN-V120</option>
+			<option value="4">ISDN-V110</option>
+			<option value="5">Virtual</option>
+			<option value="6">PIAFS</option>
+			<option value="7">HDLC-Clear-Channel</option>
+			<option value="8">X.25</option>
+			<option value="9">X.75</option>
+			<option value="10">G.3-Fax</option>
+			<option value="11">SDSL</option>
+			<option value="12">ADSL-CAP</option>
+			<option value="13">ADSL-DMT</option>
+			<option value="14">IDSL</option>
+			<option value="15">Ethernet</option>
+			<option value="16">xDSL</option>
+			<option value="17">Cable</option>
+			<option value="18">Wireless-Other</option>
+			<option value="19">Wireless-802.11</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>62</attr_id>
+		<attr_name>Port-Limit</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>63</attr_id>
+		<attr_name>Login-LAT-Port</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>64</attr_id>
+		<attr_name>Tunnel-Type</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="3">L2TP 隧道</option>
+			<option value="10">GRE 隧道</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>65</attr_id>
+		<attr_name>Tunnel-Medium-Type</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+		<attr_value_options>
+			<option value="1">IPv4</option>
+		</attr_value_options>
+	</attribute>
+	<attribute>
+		<attr_id>66</attr_id>
+		<attr_name>Tunnel-Client-Endpoint</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>67</attr_id>
+		<attr_name>Tunnel-Server-Endpoint</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>ipaddr</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>68</attr_id>
+		<attr_name>Acct-Tunnel-Connection</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>69</attr_id>
+		<attr_name>Tunnel-Password</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>79</attr_id>
+		<attr_name>EAP-Message</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>80</attr_id>
+		<attr_name>Message-Authenticator</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>octets</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>81</attr_id>
+		<attr_name>Tunnel-Private-Group-ID</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>82</attr_id>
+		<attr_name>Tunnel-Assignment-ID</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>83</attr_id>
+		<attr_name>Tunnel-Preference</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>85</attr_id>
+		<attr_name>Acct-Interim-Interval</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>integer</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>87</attr_id>
+		<attr_name>NAS-Port-Id</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>88</attr_id>
+		<attr_name>Framed-Pool</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>90</attr_id>
+		<attr_name>Tunnel-Client-Auth-ID</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+	<attribute>
+		<attr_id>101</attr_id>
+		<attr_name>Error-Cause</attr_name>
+		<vendor_id>-1</vendor_id>
+		<vendor_name>Standard Attributes</vendor_name>
+		<attr_value_type>string</attr_value_type>
+	</attribute>
+
+</radius-attribute>

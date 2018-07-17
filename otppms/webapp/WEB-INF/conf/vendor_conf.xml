@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vendor-conf>
+	<vendor id="1001">
+		<vendorName>Tnk</vendorName>
+		<vendorNormal>true</vendorNormal>
+		<classPath>
+			com.ft.otp.manager.token.tokenimport.service.impl.ft.TokenImportImpl
+		</classPath>
+		<jarPath>vendor/ft_import_seed.jar</jarPath>
+	</vendor>
+	<vendor id="1002">
+		<vendorName>PSKC</vendorName>
+		<vendorNormal>true</vendorNormal>
+		<classPath>
+			com.ft.otp.manager.token.tokenimport.service.impl.rfc6030.TokenImportImpl
+		</classPath>
+		<jarPath></jarPath>
+	</vendor>
+</vendor-conf>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_and_role">
+    <typeAlias alias="adminAndRole"
+		type="com.ft.otp.manager.admin.admin_role.entity.AdminAndRole" />
+		
+	<parameterMap class="adminAndRole" id="parameterMap_anr">
+		<parameter property="roleId" javaType="int"
+			jdbcType="Integer" />
+		<parameter property="adminId" javaType="string"
+			jdbcType="VARCHAR" />
+	</parameterMap>
+	
+   <select id="selectANR" parameterMap="parameterMap_anr" resultClass="adminAndRole">
+        <![CDATA[
+        select anr.adminid,anr.roleid ,r.roleName,r.rolemark from otppms_admin_role anr   left join otppms_roleinfo r on r.roleid=anr.roleid where  1=1 
+         ]]>
+           <dynamic prepend="">
+			<isNotNull property="adminId" prepend="and">
+				<isNotEmpty property="adminId">
+					 anr.adminid = #adminId#  and anr.roleid in(select roleid from otppms_roleinfo) 
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="0" property="roleId" prepend="and">
+				anr.roleid = #roleId#
+			</isGreaterThan>
+		</dynamic>
+   </select>
+   
+   <select id="countANR" parameterClass="adminAndRole" resultClass="int">
+		<![CDATA[
+	   	SELECT
+    		count(adminid) 
+            FROM otppms_admin_role WHERE roleid=#roleId#
+         ]]>
+   </select>
+   
+   <select id="selectALLANR" parameterMap="parameterMap_anr" resultClass="adminAndRole">
+        <![CDATA[
+        select  adminid, roleid from otppms_admin_role anr  where  1=1 
+         ]]>
+           <dynamic prepend="">
+           <isNotNull property="batchIdsInt" prepend="and">
+				 roleid IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="adminIds" prepend="and">
+				adminid IN
+				<iterate property="adminIds" open="(" close=")"
+					conjunction=",">
+					#adminIds[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+   </select>
+   
+	<insert id="insertANR" parameterClass="adminAndRole">
+		<![CDATA[
+    		INSERT INTO otppms_admin_role(adminid,roleid)
+    		                    VALUES(#adminId#,#roleId#)
+    	]]>
+	</insert>
+	
+    <delete id="deleteANR" parameterMap="parameterMap_anr">
+     <![CDATA[
+    		DELETE FROM	otppms_admin_role WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIds" prepend="and">
+				adminid IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+    </delete>
+    
+	 <update id="updateANR" parameterClass="adminAndRole">
+	   update otppms_admin_role set roleid=#roleId# where adminid=#adminId#
+	 </update>
+
+</sqlMap>

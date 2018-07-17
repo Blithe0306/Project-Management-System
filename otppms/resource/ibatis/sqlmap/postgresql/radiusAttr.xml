@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="otp_rad_attr">
+	 
+	<select id="selectRadAttr"  resultMap="resultMap_attr"  parameterClass="radAttrInfo">
+		<![CDATA[
+	    	SELECT attrtype, attrid, attrname, attrvalue, valuetype, profileid, vendorid
+	    	FROM otppms_attrinfo 
+	    	WHERE 1=1
+        ]]>
+		<include refid="queryFilter" />
+		<![CDATA[
+			ORDER BY attrtype ASC LIMIT #pageSize#
+            OFFSET #startRow#
+		]]>
+	</select>
+ 
+</sqlMap>

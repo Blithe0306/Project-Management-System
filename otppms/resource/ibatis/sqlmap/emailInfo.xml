@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="email_info">
+
+	<typeAlias alias="emailInfo"
+		type="com.ft.otp.manager.confinfo.email.entity.EmailInfo" />
+
+	<parameterMap class="emailInfo" id="parameterMap_email">
+		<parameter property="id" javaType="int" jdbcType="Integer" />
+		<parameter property="account" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="sender" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="pwd" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="servname" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="host" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="port" javaType="int" jdbcType="Integer" />
+		<parameter property="validated" javaType="int" jdbcType="Integer" />
+		<parameter property="isdefault" javaType="int" jdbcType="Integer" />
+		<parameter property="descp" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<sql id="queryFilter">
+		<dynamic prepend="">           
+			<isNotEmpty property="id" prepend="and">
+				<isNotEqual property="id" compareValue="0">
+					id = #id#
+				</isNotEqual>
+			</isNotEmpty>
+			<isNotNull property="host" prepend="and">
+				<isNotEmpty property="host">
+					host = #host#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="servname" prepend="and">
+				<isNotEmpty property="servname">
+					servname =#servname#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isdefault" prepend="and">
+				<isNotEqual property="isdefault" compareValue="0">
+					isdefault = #isdefault#
+				</isNotEqual>
+			</isNotNull>
+		</dynamic>
+	</sql>
+ 
+	
+	<insert id="addEI" parameterClass="emailInfo">
+		INSERT INTO otppms_emailinfo (account, pwd, sender, servname,
+		host, port, validated, isdefault, descp) VALUES (#account#, #pwd#,
+		#sender#, #servname#, #host#, #port#, #validated#, #isdefault#, #descp#)
+	</insert>
+	
+	<select id="findEI" parameterMap="parameterMap_email"
+		resultClass="emailInfo">
+		<![CDATA[
+	    	SELECT id, account, pwd, sender, servname, host, port, validated, isdefault, descp 
+	    	FROM otppms_emailinfo 
+	    	WHERE 1=1
+        ]]>
+		<include refid="queryFilter" />
+	</select>
+	
+	<update id="updateEI" parameterClass="emailInfo">
+		<![CDATA[
+	   	UPDATE otppms_emailinfo SET 
+	   	account = #account#, 
+	   	pwd = #pwd#,
+	   	sender = #sender#,
+	   	servname = #servname#,
+	   	host = #host#,
+	   	port = #port#,
+	   	validated = #validated#,
+	   	isdefault = #isdefault#,
+	   	descp = #descp#
+	   	
+	   	WHERE id = #id#
+		]]>
+	</update>
+	
+	<delete id="deleteEI" parameterMap="parameterMap_email">
+		<![CDATA[
+    		DELETE FROM	otppms_emailinfo WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIdsInt" prepend="and">
+				id IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+	
+	<update id="canceldefaultEI" parameterClass="emailInfo">
+		<![CDATA[ 
+	   	UPDATE otppms_emailinfo SET isdefault = #isdefault# WHERE id != #id#
+		]]>
+	</update>
+
+	<update id="setdefaultEI" parameterClass="emailInfo">
+		<![CDATA[ 
+	   	UPDATE otppms_emailinfo SET isdefault = #isdefault# WHERE id = #id#
+		]]>
+	</update>
+</sqlMap>

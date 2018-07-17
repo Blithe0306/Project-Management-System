@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="conf_Info">
+
+	<typeAlias alias="confInfo"
+		type="com.ft.otp.manager.confinfo.config.entity.ConfigInfo" />
+
+	<parameterMap class="confInfo" id="parameterMap_conf">
+		<parameter property="id" javaType="int" jdbcType="INTEGER" />
+		<parameter property="confname" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="conftype" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="confvalue" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="parentid" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="descp" javaType="string"
+			jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<select id="queryConfInfo" parameterMap="parameterMap_conf"
+		resultClass="confInfo">
+		<![CDATA[
+	    	select id, confname, conftype, confvalue, parentid, descp from otppms_configinfo where 1=1
+        ]]>
+		<dynamic prepend="">
+			<isNotNull property="conftype" prepend="and">
+				<isNotEmpty property="conftype">
+					conftype = #conftype#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+			ORDER BY conftype, id ASC
+	    ]]>
+	</select>
+
+	<select id="findConfInfo" parameterClass="confInfo"
+		resultClass="confInfo">
+		<![CDATA[
+	    	select id, confname, conftype, confvalue, parentid, descp from otppms_configinfo where 1=1
+        ]]>
+		<dynamic prepend="">
+			<isNotNull property="conftype" prepend="and">
+				<isNotEmpty property="conftype">
+					conftype = #conftype#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="confname" prepend="and">
+				<isNotEmpty property="confname">
+					confname = #confname#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<update id="updateCenterConfInfo" parameterClass="confInfo">
+		<![CDATA[
+		    UPDATE otppms_configinfo SET 
+   		]]>
+		<dynamic prepend="">
+			<isNotNull property="confname">
+				<isNotEmpty property="confname">
+					confname = #confname#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="confvalue" prepend=",">
+				confvalue = $confvalue$
+			</isNotNull>
+			<isNotNull property="descp" prepend=",">
+				<isNotEmpty property="descp">
+					descp = #descp#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+		    WHERE 
+		    confname = #confname#
+		    AND
+		    conftype = #conftype#
+   		]]>
+	</update>
+
+</sqlMap>

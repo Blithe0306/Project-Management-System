@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_and_orgunit">
+  
+	<select id="selectAAO" parameterMap="parameterMap_ano" resultClass="adminAndOrgunit">
+        <![CDATA[
+        select adminid,nvl(orgunitid,0) as orgunitid ,domainid from otppms_admin_orgunit  where  1=1 
+         ]]>
+          <include refid="queryAdminAndOrgunit" />   
+   </select>	
+	
+	 
+	
+</sqlMap>
+
+

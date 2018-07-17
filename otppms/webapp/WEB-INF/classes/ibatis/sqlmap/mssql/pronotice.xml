@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="notice_info">
+
+	<select id="selectNotice" resultClass="noticeInfo"  parameterClass="noticeInfo">
+		<![CDATA[
+	    	SELECT id,systype,createuser,createtime,expiretime,content,title
+	    	FROM 
+        ]]>
+        <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+					(select top $pageSize$ * from otppms_portal_notice where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryFilter" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+				  and id not in (select top $startRow$ id  from otppms_portal_notice where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryFilter" />
+         </dynamic>
+		<![CDATA[
+			order by id DESC) order by id DESC) otppms_portal_notice ORDER BY id DESC 
+		]]>
+	</select>
+	
+</sqlMap>

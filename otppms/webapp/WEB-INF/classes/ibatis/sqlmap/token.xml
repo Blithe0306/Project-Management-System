@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="token_info">
+	<typeAlias alias="tokenInfo"
+		type="com.ft.otp.manager.token.entity.TokenInfo" />
+
+	<!-- Parameter corresponds -->
+	<parameterMap class="tokenInfo" id="parameterMap_tk">
+		<!-- tokenInfo -->
+		<parameter property="token" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="enabled" javaType="int" jdbcType="INTEGER" />
+		<parameter property="locked" javaType="int" jdbcType="INTEGER" />
+		<parameter property="lost" javaType="int" jdbcType="INTEGER" />
+		<parameter property="logout" javaType="int" jdbcType="INTEGER" />
+		<parameter property="pubkey" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="authnum" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="authmethod" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="empin" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="empindeath" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="expiretime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="syncwnd" javaType="int" jdbcType="INTEGER" />
+		<parameter property="temploginerrcnt" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="longloginerrcnt" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="loginlocktime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="driftcount" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="physicaltype" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="producttype" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="specid" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="domainid" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="orgunitid" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="gensmstime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="importtime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="distributetime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="crauthnum" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="authtime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="crauthtime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="authotp" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="crauthotp" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="crauthdata" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="cractivecode" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="pubkeystate" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="newpubkey" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="cractivetime" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="cractivecount" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="vendorid" javaType="string"
+			jdbcType="VARCHAR" />
+
+		<!-- expand info -->
+		<parameter property="pageSize" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="startRow" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="countValue" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="prdLabel" javaType="int"
+			jdbcType="INTEGER" />
+		<parameter property="phyLabel" javaType="int"
+			jdbcType="INTEGER" />
+	</parameterMap>
+
+	<!-- result mapping -->
+	<resultMap class="tokenInfo" id="resultMap_tk">
+		<!-- token info -->
+		<result property="token" column="token" />
+		<result property="enabled" column="enabled" nullValue="0" />
+		<result property="locked" column="locked" nullValue="0" />
+		<result property="lost" column="lost" nullValue="0" />
+		<result property="logout" column="logout" nullValue="0" />
+		<result property="authnum" column="authnum" />
+		<result property="authmethod" column="authmethod" nullValue="0" />
+		<result property="empin" column="empin" />
+		<result property="empindeath" column="empindeath" nullValue="0" />
+		<result property="expiretime" column="expiretime" nullValue="0" />
+		<result property="syncwnd" column="syncwnd" nullValue="0" />
+		<result property="temploginerrcnt" column="temploginerrcnt"
+			nullValue="0" />
+		<result property="longloginerrcnt" column="longloginerrcnt"
+			nullValue="0" />
+		<result property="loginlocktime" column="loginlocktime"
+			nullValue="0" />
+		<result property="driftcount" column="driftcount" nullValue="0" />
+		<result property="physicaltype" column="physicaltype"
+			nullValue="0" />
+		<result property="producttype" column="producttype"
+			nullValue="0" />
+		<result property="specid" column="specid" />
+		<result property="domainid" column="domainid" nullValue="0" />
+		<result property="orgunitid" column="orgunitid" nullValue="0" />
+		<result property="gensmstime" column="gensmstime" nullValue="0" />
+		<result property="importtime" column="importtime" nullValue="0" />
+		<result property="distributetime" column="distributetime"
+			nullValue="0" />
+		<result property="crauthnum" column="crauthnum" />
+		<result property="authtime" column="authtime" nullValue="0" />
+		<result property="crauthtime" column="crauthtime" nullValue="0" />
+		<result property="authotp" column="authotp" />
+		<result property="crauthotp" column="crauthotp" />
+		<result property="crauthdata" column="crauthdata" />
+		<result property="cractivecode" column="cractivecode" />
+		<result property="pubkeystate" column="pubkeystate"
+			nullValue="0" />
+		<result property="newpubkey" column="newpubkey" />
+		<result property="cractivetime" column="cractivetime"
+			nullValue="0" />
+		<result property="cractivecount" column="cractivecount"
+			nullValue="0" />
+		<result property="vendorid" column="vendorid" />
+		<result property="bindTag" column="bindtag" nullValue="0" />
+	</resultMap>
+
+	<!-- result mapping -->
+	<resultMap class="tokenInfo" id="resultMap_ntk">
+		<!-- soft disk , query token info -->
+		<result property="token" column="token" />
+		<result property="pubkey" column="pubkey" />
+		<result property="authnum" column="authnum" />
+		<result property="specid" column="specid" />
+		<result property="expiretime" column="expiretime" nullValue="0" />
+		<result property="physicaltype" column="physicaltype"
+			nullValue="0" />
+		<result property="producttype" column="producttype"
+			nullValue="0" />
+		<result property="domainid" column="domainid" nullValue="0" />
+		<result property="orgunitid" column="orgunitid" nullValue="0" />
+		<result property="newpubkey" column="newpubkey" />
+		
+		<result property="syncmode"  nullValue="0" />
+	</resultMap>
+
+	<resultMap class="tokenInfo" id="resultMap_nk">
+		<result property="token" column="token" />
+	</resultMap>
+
+	<!-- query token common filter condition -->
+	<sql id="queryTokensCondition">
+		<dynamic>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					tn.token like '%$token$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="-1" property="producttype"
+				prepend="and">
+				tn.producttype = #producttype#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="physicaltype"
+				prepend="and">
+				tn.physicaltype = #physicaltype#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="enabled"
+				prepend="and">
+				tn.enabled = #enabled#
+			</isGreaterThan>
+			<isEqual compareValue="0" property="locked" prepend="and">
+				tn.locked = #locked#
+			</isEqual>
+			<isEqual compareValue="2" property="locked" prepend="and">
+				tn.locked in ('1','2')
+			</isEqual>
+			<isGreaterThan compareValue="-1" property="lost"
+				prepend="and">
+				tn.lost = #lost#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="logout"
+				prepend="and">
+				tn.logout = #logout#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-2" property="pubkeystate"
+				prepend="and">
+				tn.pubkeystate = #pubkeystate#
+			</isGreaterThan>
+			<!-- bind -->
+			<isEqual compareValue="1" property="bind" prepend="and">
+				exists (select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<!-- don't bind -->
+			<isEqual compareValue="0" property="bind" prepend="and">
+				not exists(select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<isNotEmpty property="tokenStart" prepend="and">
+				tn.token >= #tokenStart#
+			</isNotEmpty>
+			<isNotEmpty property="tokenEnd" prepend="and">
+				#tokenEnd# >= tn.token
+			</isNotEmpty>
+			<isNotNull property="batchIds" prepend="and">
+				tn.token IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="domainid" prepend="and">
+				<isNotEmpty property="domainid">
+					tn.domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="orgunitid" prepend="and">
+				<isNotEmpty property="orgunitid">
+					tn.orgunitid = #orgunitid#
+				</isNotEmpty>
+			</isNotNull>
+			<!-- expiretime -->
+			<isGreaterThan compareValue="0" property="expiretime">
+				<isEqual compareValue="0" property="expiretimeType"
+					prepend="and">
+					#expiretime# >= tn.expiretime
+				</isEqual>
+				<isEqual compareValue="1" property="expiretimeType"
+					prepend="and">
+					#expiretime# >= tn.expiretime
+				</isEqual>
+				<isEqual compareValue="1" property="expiretimeType"
+					prepend="and">
+					tn.expiretime >= #nowtime#
+				</isEqual>
+				<isEqual compareValue="2" property="expiretimeType"
+					prepend="and">
+					tn.expiretime >= #expiretime#
+				</isEqual>
+
+			</isGreaterThan>
+			<isNotEqual compareValue="-1" property="vendorid"
+				prepend="and">
+				<isNotNull property="vendorid">
+					<isNotEmpty property="vendorid">
+						tn.vendorid = #vendorid#
+					</isNotEmpty>
+				</isNotNull>
+			</isNotEqual>
+			<!-- token dist run，token list load not run -->
+			<isEqual compareValue="1" property="queryMark">
+				<isNull property="orgunitid" prepend="and">
+					<isEmpty property="orgunitid">
+						tn.orgunitid is null
+					</isEmpty>
+				</isNull>
+			</isEqual>
+			<isNotEqual compareValue="1" property="queryMark">
+				<isNotNull property="batchIdsInt" prepend="and">
+					tn.domainid IN
+					<iterate property="batchIdsInt" open="(" close=")"
+						conjunction=",">
+						#batchIdsInt[]#
+					</iterate>
+				</isNotNull>
+			</isNotEqual>
+			<isEqual compareValue="1" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					(tn.orgunitid is null or tn.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+					)
+				</isNotNull>
+			</isEqual>
+			<isEqual compareValue="2" property="orgFlag">
+				<isNotNull property="orgunitIds" prepend="and">
+					tn.orgunitid IN
+					<iterate property="orgunitIds" open="(" close=")"
+						conjunction=",">
+						#orgunitIds[]#
+					</iterate>
+				</isNotNull>
+			</isEqual>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((exists (select distinct fao.domainid from
+					otppms_admin_orgunit fao where tn.domainid =
+					fao.domainid and fao.adminid=#currentAdminId# and
+					fao.orgunitid is null) and (tn.orgunitid is null))
+					or exists (select distinct fao.orgunitid from
+					otppms_admin_orgunit fao where tn.orgunitid =
+					fao.orgunitid and fao.adminid=#currentAdminId# and
+					tn.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+
+		</dynamic>
+	</sql>
+
+	<select id="findTP" resultClass="tokenInfo"
+		parameterClass="tokenInfo">
+		<![CDATA[
+		    SELECT   p.specid,
+		             p.tokentype as tokenType,
+		             p.algid,
+		             p.signsuite ,
+		             p.cvssuite,
+		             p.crsuite,
+		             p.otplen,
+		             p.intervaltime,
+		             p.begintime
+	    	  from otppms_tokenspec p where 1=1
+          ]]>
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty prepend="and" property="specid">
+					p.specid = #specid#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<!-- batch update OR one update token Organizations -->
+	<update id="updateTokenOrg" parameterClass="tokenInfo">
+		<![CDATA[
+			UPDATE otppms_tokeninfo SET orgunitid = #orgunitid#
+		]]>
+		<dynamic>
+			<isNotNull property="domainid" prepend=",">
+				<isNotEmpty property="domainid">
+					domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic>
+			WHERE 1=1
+
+			<isNotNull property="newDomainId" prepend="and">
+				<isNotEmpty property="newDomainId">
+					domainid = #newDomainId#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="newOrgunitId" prepend="and">
+				<isNotEmpty property="newOrgunitId">
+					orgunitid = #newOrgunitId#
+				</isNotEmpty>
+			</isNotNull>
+
+			<isNotNull property="batchIds" prepend="and">
+				token IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					token = #token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</update>
+
+	<!-- filter by special condition -->
+	<sql id="queryTokensConditionBC">
+		<dynamic>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					tn.token like '%$token$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="-1" property="producttype"
+				prepend="and">
+				tn.producttype = #producttype#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="physicaltype"
+				prepend="and">
+				tn.physicaltype = #physicaltype#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-2" property="pubkeystate"
+				prepend="and">
+				tn.pubkeystate = #pubkeystate#
+			</isGreaterThan>
+			<isGreaterThan compareValue="-1" property="logout"
+				prepend="and">
+				tn.logout = #logout#
+			</isGreaterThan>
+			<isEqual compareValue="1" property="bind" prepend="and">
+				exists (select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<isEqual compareValue="0" property="bind" prepend="and">
+				not exists(select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<isNotEmpty property="tokenStart" prepend="and">
+				tn.token >= #tokenStart#
+			</isNotEmpty>
+			<isNotEmpty property="tokenEnd" prepend="and">
+				#tokenEnd# >= tn.token
+			</isNotEmpty>
+			<isNotNull property="batchIds" prepend="and">
+				tn.token IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="domainid" prepend="and">
+				<isNotEmpty property="domainid">
+					tn.domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="1" property="tflag" prepend="and">
+				tn.orgunitid is null
+			</isEqual>
+			<isEqual compareValue="0" property="auflag" prepend="and">
+				<isNotNull property="orgunitid">
+					<isNotEmpty property="orgunitid">
+						(tn.orgunitid = #orgunitid# or tn.orgunitid is
+						null)
+					</isNotEmpty>
+				</isNotNull>
+			</isEqual>
+			<isEqual compareValue="1" property="auflag" prepend="and">
+				<isNotNull property="orgunitid">
+					<isNotEmpty property="orgunitid">
+						tn.orgunitid = #orgunitid#
+					</isNotEmpty>
+				</isNotNull>
+			</isEqual>
+			<isNotNull property="domainids" prepend="and">
+				tn.domainid in
+				<iterate property="domainids" open="(" close=")"
+					conjunction=",">
+					#domainids[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="orgunitids" prepend="and">
+				tn.orgunitid in
+				<iterate property="orgunitids" open="(" close=")"
+					conjunction=",">
+					#orgunitids[]#
+				</iterate>
+			</isNotNull>
+			<isNotEqual compareValue="-1" property="vendorid"
+				prepend="and">
+				<isNotNull property="vendorid">
+					<isNotEmpty property="vendorid">
+						tn.vendorid = #vendorid#
+					</isNotEmpty>
+				</isNotNull>
+			</isNotEqual>
+			<isNotNull property="orgunitIds" prepend="and">
+				(tn.orgunitid is null or tn.orgunitid IN
+				<iterate property="orgunitIds" open="(" close=")"
+					conjunction=",">
+					#orgunitIds[]#
+				</iterate>
+				)
+			</isNotNull>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((exists (select distinct fao.domainid from
+					otppms_admin_orgunit fao where tn.domainid =
+					fao.domainid and fao.adminid=#currentAdminId# and
+					fao.orgunitid is null) and (tn.orgunitid is null))
+					or exists (select distinct fao.orgunitid from
+					otppms_admin_orgunit fao where tn.orgunitid =
+					fao.orgunitid and fao.adminid=#currentAdminId# and
+					tn.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+
+		</dynamic>
+	</sql>
+
+	<!-- change token 2013-8-13 -->
+	<sql id="queryTokensConditionCT">
+		<dynamic>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					tn.token like '%$token$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="-1" property="logout"
+				prepend="and">
+				tn.logout = #logout#
+			</isGreaterThan>
+			<isEqual compareValue="1" property="bind" prepend="and">
+				exists (select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<isEqual compareValue="0" property="bind" prepend="and">
+				not exists(select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+			</isEqual>
+			<isNotNull property="domainid" prepend="and">
+				<isNotEmpty property="domainid">
+					tn.domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+			<isEqual compareValue="1" property="tflag" prepend="and">
+				tn.orgunitid is null
+			</isEqual>
+			<isNotNull property="orgunitid" prepend="and">
+				<isNotEmpty property="orgunitid">
+					(tn.orgunitid = #orgunitid# or tn.orgunitid is null)
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="userId" prepend="and">
+				<isNotEmpty property="userId">
+					tn.token not in (select ut.token from
+					otppms_user_token ut where ut.userid = #userId# and
+					ut.domainid = #domainid#)
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="isFliterTag" prepend="and">
+				<isEqual compareValue="1" property="isFliterTag">
+					((exists (select distinct fao.domainid from
+					otppms_admin_orgunit fao where tn.domainid =
+					fao.domainid and fao.adminid=#currentAdminId# and
+					fao.orgunitid is null) and (tn.orgunitid is null))
+					or exists (select distinct fao.orgunitid from
+					otppms_admin_orgunit fao where tn.orgunitid =
+					fao.orgunitid and fao.adminid=#currentAdminId# and
+					tn.domainid=fao.domainid))
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+	</sql>
+	<!-- change token 2013-8-13 -->
+
+	<!-- find one token -->
+	<select id="findTK" resultMap="resultMap_tk"
+		parameterClass="tokenInfo">
+		<![CDATA[
+		    SELECT
+	    		tn.token,
+	    		tn.enabled,
+	    		tn.locked,
+	    		tn.lost,
+	    		tn.logout,
+	    		tn.authnum,
+	    		tn.authmethod,
+	    		tn.empin  ,
+	    		tn.empindeath ,
+	    		tn.expiretime,
+	    		tn.syncwnd,
+	    		tn.temploginerrcnt,  
+	    		tn.longloginerrcnt,  
+	    		tn.loginlocktime,
+	    		tn.driftcount,
+	    		tn.physicaltype,
+	    		tn.producttype,
+	    		tn.specid,
+	    		tn.domainid,
+	    		tn.orgunitid,
+	    		tn.gensmstime,
+	    		tn.importtime,
+	    		tn.distributetime, 
+	    		tn.crauthnum  ,
+				tn.authtime , 
+				tn.crauthtime  ,
+				tn.authotp  ,
+				tn.crauthotp ,
+				tn.crauthdata  ,
+				tn.cractivecode  ,
+				tn.pubkeystate  ,
+				tn.newpubkey  ,
+				tn.cractivetime  ,
+				tn.cractivecount, 
+				tn.vendorid,
+				'0' as bindTag 
+           from otppms_tokeninfo tn left join otppms_tokenspec tp on tn.specid=tp.specid where 1=1
+          ]]>
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty prepend="and" property="token">
+					tn.token = #token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<!-- find one token -->
+	<select id="findNTK" resultMap="resultMap_ntk"
+		parameterClass="tokenInfo">
+		<![CDATA[
+		    SELECT
+	    		tn.token,
+	    		tn.pubkey,
+	    		tn.authnum,
+	    		tn.specid,
+	    		tn.expiretime,
+	    		tn.physicaltype,
+	    		tn.producttype,
+	    		tn.domainid,
+	    		tn.orgunitid,
+				tn.newpubkey,
+				tp.syncmode 
+           from otppms_tokeninfo tn left join otppms_tokenspec tp on tn.specid=tp.specid where 1=1
+          ]]>
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty prepend="and" property="token">
+					tn.token = #token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="findToken" resultMap="resultMap_nk"
+		parameterClass="tokenInfo">
+		<![CDATA[
+		    SELECT tn.token from otppms_tokeninfo tn where 1=1 and not exists(select otppms_user_token.token from
+				otppms_user_token where otppms_user_token.token =
+				tn.token)
+          ]]>
+		<dynamic prepend="">
+			<isNotNull>
+				<isNotEmpty prepend="and" property="token">
+					tn.token = #token#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="orgunitid" prepend="and">
+				<isNotEmpty property="orgunitid">
+					tn.orgunitid = #orgunitid#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="domainid" prepend="and">
+				<isNotEmpty property="domainid">
+					tn.domainid = #domainid#
+				</isNotEmpty>
+			</isNotNull>
+			<isGreaterThan compareValue="-1" property="logout"
+				prepend="and">
+				tn.logout = #logout#
+			</isGreaterThan>
+			<isNotEmpty property="tokenStart" prepend="and">
+				tn.token >= #tokenStart#
+			</isNotEmpty>
+			<isNotEmpty property="tokenEnd" prepend="and">
+				#tokenEnd# >= tn.token
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- query token count by condition (left join otppms_tokenspec tp on tn.specid=tp.specid) -->
+	<select id="countTK" resultClass="int"
+		parameterMap="parameterMap_tk">
+		<![CDATA[
+		    SELECT count(token) 
+            from otppms_tokeninfo tn where 1=1
+        ]]>
+		<include refid="queryTokensCondition" />
+	</select>
+
+	<!-- query token count by condition -->
+	<select id="countTKBC" resultClass="int"
+		parameterMap="parameterMap_tk">
+		<![CDATA[
+		    SELECT count(token) 
+            from otppms_tokeninfo tn where 1=1
+        ]]>
+		<include refid="queryTokensConditionBC" />
+	</select>
+
+	<!-- change token -->
+	<select id="countCT" resultClass="int"
+		parameterMap="parameterMap_tk">
+		<![CDATA[
+		    SELECT count(token) 
+            from otppms_tokeninfo tn where 1=1
+        ]]>
+		<include refid="queryTokensConditionCT" />
+	</select>
+
+	<!-- insert token -->
+	<insert id="insertTK" parameterClass="tokenInfo">
+		<![CDATA[
+    		INSERT INTO otppms_tokeninfo(
+    		token,enabled,locked,lost,logout,pubkey,authnum,authmethod,empin,empindeath,
+    		expiretime,syncwnd,temploginerrcnt,longloginerrcnt,loginlocktime,driftcount,
+    		physicaltype,producttype,specid,domainid,orgunitid,gensmstime,importtime,distributetime,
+    		crauthnum,authtime,crauthtime,authotp,crauthotp,crauthdata,cractivecode,pubkeystate,
+    		newpubkey,cractivetime,cractivecount,vendorid)VALUES(
+    		#token#,#enabled#,#locked#,#lost#,#logout#,#pubkey#,#authnum#,#authmethod#,#empin#,
+    		#empindeath#,#expiretime#,#syncwnd#,#temploginerrcnt#,#longloginerrcnt#,#loginlocktime#,
+    		#driftcount#,#physicaltype#,#producttype#,#specid#,#domainid#,#orgunitid#,#gensmstime#,#importtime#,
+    		#distributetime#,#crauthnum#,#authtime#,#crauthtime#,#authotp#,#crauthotp#,#crauthdata#,#cractivecode#,
+    		#pubkeystate#,#newpubkey#,#cractivetime#,#cractivecount#,#vendorid#)
+    	]]>
+	</insert>
+
+	<update id="distSoftTkn" parameterClass="tokenInfo">
+		<![CDATA[
+			UPDATE  otppms_tokeninfo SET 
+			 distributetime = #distributetime#
+			WHERE token = #token#
+		]]>
+	</update>
+
+	<!-- delete token -->
+	<delete id="deleteTK" parameterClass="tokenInfo">
+		<![CDATA[
+			DELETE FROM otppms_tokeninfo WHERE 1=1 
+		]]>
+		<dynamic>
+			<isNotNull property="batchIds" prepend="and">
+				token IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					token = #token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</delete>
+
+	<!-- update empin、authmethod -->
+	<update id="updateTK" parameterClass="tokenInfo">
+		<![CDATA[
+			UPDATE  otppms_tokeninfo SET 
+			empin  = #empin#,
+			empindeath  = #empindeath#,
+			authmethod = #authmethod#
+			WHERE token = #token# 
+		]]>
+	</update>
+
+	<!-- update token state -->
+	<update id="updateTokenState" parameterClass="tokenInfo">
+		<![CDATA[
+			UPDATE otppms_tokeninfo 
+		]]>
+		<dynamic prepend="set">
+			<isGreaterThan property="enabled" compareValue="-1"
+				prepend=",">
+				enabled = #enabled#
+			</isGreaterThan>
+			<isGreaterThan property="locked" compareValue="-1"
+				prepend=",">
+				locked = #locked#, temploginerrcnt = 0, longloginerrcnt
+				= 0, loginlocktime = #loginlocktime#
+			</isGreaterThan>
+			<isGreaterThan property="lost" compareValue="-1"
+				prepend=",">
+				lost = #lost#
+			</isGreaterThan>
+			<isGreaterThan property="logout" compareValue="-1"
+				prepend=",">
+				logout = #logout#
+			</isGreaterThan>
+		</dynamic>
+		<dynamic>
+			WHERE 1=1
+			<isNotNull property="batchIds" prepend="and">
+				token IN
+				<iterate property="batchIds" open="(" close=")"
+					conjunction=",">
+					#batchIds[]#
+				</iterate>
+			</isNotNull>
+			<isNotNull property="token" prepend="and">
+				<isNotEmpty property="token">
+					token = #token#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</update>
+	
+	<!-- 修改是否锁定 -->
+	<update id="lockedTK" parameterClass="map">
+		<![CDATA[
+			UPDATE otppms_tokeninfo 
+		]]>	
+		<dynamic prepend="set">
+			<isGreaterThan property="locked" compareValue="-1"
+					prepend=",">
+					locked = #locked#, temploginerrcnt = 0, longloginerrcnt
+					= 0, loginlocktime = #loginlocktime#
+			</isGreaterThan>
+		</dynamic>		
+		<![CDATA[
+			WHERE token = #token#
+		]]>
+	</update>
+</sqlMap>

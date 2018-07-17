@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user_log">
+	 <select id="selectUL" resultClass="userlogInfo" parameterMap="parameterMap_aul">
+		<![CDATA[
+    	 select  
+    		id,userid,token,clientip,actionid,actionresult,logtime,
+    		logcontent,hashcode,domainid,domainname,orgunitid,orgunitname,moduletype,vendorid,serverip  
+    		from 
+    	]]>
+	   <dynamic prepend="">
+         	<isNotNull property="pageSize" prepend="">
+				<isNotEmpty property="pageSize">
+					(select top $pageSize$ * from otppms_loginfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryUserLogCondition" />
+			<isNotNull property="startRow" prepend="">
+				<isNotEmpty property="startRow">
+					and id not in (select top $startRow$ id from otppms_loginfo where 1=1
+				</isNotEmpty>
+			</isNotNull>
+			<include refid="queryUserLogCondition" />
+	   </dynamic> 
+	   <![CDATA[       		
+        	order by id desc) order by id desc) otppms_loginfo order by id desc
+        ]]>
+	</select>   
+</sqlMap>	

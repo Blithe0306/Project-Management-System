@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin_role">
+   <typeAlias alias="adminRole"
+		type="com.ft.otp.manager.admin.role.entity.RoleInfo" />
+	<parameterMap class="adminRole" id="parameterMap_ar">
+		<parameter property="roleName" javaType="string"
+			jdbcType="VARCHAR" />
+	    <parameter property="loginUser" javaType="string"
+			jdbcType="VARCHAR" />
+		<parameter property="querySource" javaType="string"
+			jdbcType="VARCHAR" />
+	    <parameter property="startTime" javaType="int" jdbcType="INTEGER" />
+		<parameter property="endTime" javaType="int" jdbcType="INTEGER" />
+	</parameterMap>
+	
+	
+	<update id="updateDesignateAR" parameterClass="adminRole">
+		<![CDATA[
+        update otppms_roleinfo set createuser=#createuser# where 1=1
+   		]]>
+		<dynamic prepend="">
+			<isNotNull property="roleName" prepend="and">
+				<isNotEmpty property="roleName">
+					rolename =#roleName#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</update>
+	
+   <insert id="insertAR" parameterClass="adminRole">
+      insert into otppms_roleinfo(rolename,rolemark,createuser,
+			createtime,
+			modifytime,descp) values(#roleName#,#rolemark#,#createuser#,#createtime#,#modifytime#,#descp#)
+   </insert>
+   
+	 
+	<select id="findAR" resultClass="adminRole"
+		parameterClass="adminRole">
+		<![CDATA[
+	   	SELECT
+    		roleid,
+			rolename,
+			rolemark,
+			createuser,
+			createtime,
+			modifytime,
+			descp
+            FROM otppms_roleinfo WHERE  1=1
+         ]]>
+         <dynamic prepend="">
+			<isNotEqual compareValue="0" property="roleId" prepend="and">
+					 roleid = #roleId#
+			</isNotEqual>
+			<isNotNull property="roleName" prepend="and">
+				<isNotEmpty property="roleName">
+					 rolename = #roleName#
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="rolemark" prepend="and">
+				<isNotEmpty property="rolemark">
+					 rolemark = #rolemark#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+ 
+   <delete id="deleteAR" parameterMap="parameterMap_ar">
+		<![CDATA[
+    		DELETE FROM	otppms_roleinfo WHERE 1=1 
+    	]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIdsInt" prepend="and">
+				roleid IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+	</delete>
+	
+	<update id="updateAR" parameterClass="adminRole">
+		<![CDATA[
+			update otppms_roleinfo set createtime=#createtime#, modifytime=#modifytime#, rolename=#roleName#, descp=#descp# where 1=1
+	   	]]>
+   		<dynamic prepend="">
+			<isNotNull property="roleId" prepend="and">
+				<isNotEmpty property="roleId">
+					roleid =#roleId#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</update>
+ 
+   <select id="selectARS" resultClass="adminRole"
+		parameterMap="parameterMap_ar">
+		<![CDATA[
+	   	SELECT
+    		roleid,
+			rolename,
+			rolemark,
+			createuser,
+			createtime,
+			modifytime,
+			descp
+            FROM otppms_roleinfo WHERE 1=1 
+         ]]>
+		<dynamic prepend="">
+			<isNotNull property="batchIdsInt" prepend="and">
+				roleid IN
+				<iterate property="batchIdsInt" open="(" close=")"
+					conjunction=",">
+					#batchIdsInt[]#
+			   </iterate>
+		  </isNotNull>
+		</dynamic>
+	</select>
+	
+	<!-- admin role list query condition -->
+	<sql id="queryRoleCondition">
+		<dynamic>
+			<!-- when add admin select role list -->
+			<isNotNull property="querySource">
+				<isNotEmpty property="querySource">
+					<!-- super admin -->
+					<isEqual compareValue="ADMIN" property="loginUser"
+						prepend="and">
+						createuser in (select otppms_admin_role.adminid from
+						otppms_admin_role, otppms_roleinfo where
+						otppms_roleinfo.rolemark='ADMIN' and
+						otppms_roleinfo.roleid=otppms_admin_role.roleid) and
+						rolemark!='ADMIN'
+					</isEqual>
+					<!-- don't super admin -->
+					<isNotEqual compareValue="ADMIN"
+						property="loginUser" prepend="and">
+						createuser in(select createuser from otppms_roleinfo
+						where createuser=#loginUser# and rolemark is
+						null union all select createuser from otppms_roleinfo
+						where createuser=#loginUser# and rolemark='')
+					</isNotEqual>
+				</isNotEmpty>
+			</isNotNull>
+			<!-- common admin login,query self build role and self -->
+			<isEmpty property="querySource">
+				<isNotNull property="loginUser" prepend="and">
+					<isNotEmpty property="loginUser">
+						roleid in(SELECT roleid from otppms_roleinfo where
+						createuser =#loginUser# union all select roleid
+						from otppms_roleinfo where roleid in(select roleid from
+						otppms_admin_role where adminid=#loginUser#))
+					</isNotEmpty>
+				</isNotNull>
+			</isEmpty>
+			<isNotNull property="roleName" prepend="and">
+				<isNotEmpty property="roleName">
+					rolename like	'%$roleName$%'
+				</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="createuser" prepend="and">
+				<isNotEmpty property="createuser">
+					createuser like	'%$createuser$%'
+				</isNotEmpty>
+			</isNotNull>
+			
+			<isGreaterThan compareValue="0" property="startTime"
+				prepend="and">
+				<![CDATA[ createtime >= #startTime# ]]>
+			</isGreaterThan>
+			<isGreaterThan compareValue="0" property="endTime"
+				prepend="and">
+				<![CDATA[ createtime <= #endTime# ]]>
+			</isGreaterThan>
+		</dynamic>
+	</sql>
+	
+	<select id="countRL" parameterClass="adminRole" resultClass="int">
+		<![CDATA[
+	   	SELECT
+    		count(roleid) 
+            FROM otppms_roleinfo WHERE createuser=#createuser# and roleid != (select ft_r.roleid
+                     from otppms_admin_role ft_ar, otppms_roleinfo ft_r
+                    where ft_ar.roleid = ft_r.roleid
+                      and ft_ar.adminid = #createuser#)
+         ]]>
+   </select>
+   
+   <select id="selectALLRL" parameterMap="parameterMap_ar" resultClass="adminRole">
+        <![CDATA[
+        	select  createuser, roleid, rolename, descp from otppms_roleinfo anr where roleid != (select ft_r.roleid
+                     from otppms_admin_role ft_ar, otppms_roleinfo ft_r
+                    where ft_ar.roleid = ft_r.roleid
+                      and ft_ar.adminid = #createuser#)
+         ]]>
+         <dynamic prepend="">
+           	 <isNotNull property="createuser" prepend="and">
+				<isNotEmpty property="createuser">
+					  anr.createuser = #createuser# 
+				 </isNotEmpty>
+			 </isNotNull>
+		 </dynamic>
+   </select>
+   
+</sqlMap>
