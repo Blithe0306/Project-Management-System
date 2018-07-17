@@ -1,7 +1,0 @@
-insert into otppms_licinfo (licid, licinfo, lictype, issuer, customerid, licstate, licupdatetime) values ('oBHr5L5gjJumsHGWIc2lPA==', 'gs426CJhP9HrTZfbf/Ki6FY6l8KrV2esiGWXGc5tI4U6VKY+bMVZkxFblzphsh8D2jNXzA0WbnaXVJ5KlrmYj1CLIFEhs/cde07gZ/qPeWFdFmyNgchuKhmNX90CveG8doiaJXs1fvhPHFunegaaiNiCk3fbPnFKoFTQKWvZ8KTOlKOC9COMvsZAShyw3JZ24QCDgkI/Or/zOTQ4/wHYSm5nOgMSoH/y9a6OUYKxmNc3p31SinAlhp6KKKOgy97U7XDnKqb/GxXizdARxZ4Siu0e7bUlkaUeo5rq0ppAyngxD85OMAUaTio+p1Lo1KCrNr7yZyGZUJTonXrHazOicL8C33Woc0o6Yi2u0PJSnbJiNcz4HBeIPXscXSizzq522DaB/Llm9Z5aIu3D9diuubkGNEHe32IqFmIOAti24NMZFosE6tIjUblcVMxM3d491Dso6SUQ39ZoOl0VYun5G/ljernMpcTew4KG2E9BSMmEAoBZ3lr08IPKWlgbLZFeJMexUT+Ck76OHSO/tJgKBdibfP1w6OOpxwUIXGPZi/3uXrbMYlLb7w==', 0, 'FeiTian Beijing CHINA', 'EITD00', 1, 1380000000);
-
--- insert into otppms_admininfo (adminid, realname, localauth, pwd, pwdsettime, locked, temploginerrcnt, longloginerrcnt, loginlocktime, logintime, logincnt, createuser, enabled, createtime) values ('admin', 'admin', 0, 'F72A2C9521', 0, 0, 0, 0, 0, 0, 0, 'admin', 1, 1380000000);
-
--- insert into otppms_admin_role (adminid, roleid) values ('admin', 1);
-
-insert into otppms_hostinfo (hostipaddr, hostname, confid, priority, licid, ftradiusenabled, protocoltype, authport, syncport, radiusenabled, radauthport, soapenabled, soapport, webservicename) values ('127.0.0.1', 'localhost', 0, 1, 'oBHr5L5gjJumsHGWIc2lPA==', 1, 'udp', 1915, 1916, 1, 1812, 1, 18081, 'otpwebservice');
